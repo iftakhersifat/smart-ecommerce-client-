@@ -6,6 +6,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Root from './Components/Root/Root.jsx';
 import Home from './Components/Pages/Home.jsx';
+import NotFound from './Components/Pages/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       {},
     ]
   },
+  {path:'*', Component: NotFound},
 ]);
 
 createRoot(document.getElementById('root')).render(
