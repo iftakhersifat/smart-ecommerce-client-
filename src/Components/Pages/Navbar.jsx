@@ -6,7 +6,7 @@ const Navbar = () => {
     <li><NavLink to="/" className={({isActive})=> isActive ? 'text-blue-600 font-medium underline' : 'hover:text-indigo-500 font-medium transition'}>Home</NavLink></li>
     </>
     const moreLinks = <>
-    <li><NavLink to="/about-us" className={({isActive})=> isActive ? 'text-blue-600 font-medium underline' : 'hover:text-indigo-500 font-medium transition'}>About Us</NavLink></li>
+    <li><NavLink to="/about" className={({isActive})=> isActive ? 'text-blue-600 font-medium underline' : 'hover:text-indigo-500 font-medium transition'}>About Us</NavLink></li>
     </>
     return (
         <div className="shadow-md sticky top-0 z-50 bg-white">
