@@ -38,17 +38,6 @@ const HeroSlider = () => {
     return () => clearInterval(slideInterval);
   }, [slides.length]);
 
-  useEffect(() => {
-    const targetSlide = document.getElementById(`slide-${currentSlide}`);
-    if (targetSlide) {
-      targetSlide.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start'
-      });
-    }
-  }, [currentSlide]);
-
   const handlePrev = () => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
@@ -58,31 +47,46 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className="carousel w-full h-[70vh]">
-      {slides.map((slide, index) => (
-        <div key={slide.id} id={`slide-${index}`} className="carousel-item relative w-full">
-          <div className="hero w-full"
-            style={{
-              backgroundImage: `url(${slide.image})`,
-            }}>
-            <div className="hero-overlay bg-opacity-60"></div>
-            <div className="hero-content text-center text-neutral-content">
-              <div className="max-w-md">
-                <h1 className="mb-5 text-4xl md:text-4xl lg:text-5xl font-bold">{slide.title}</h1>
-                <p className="mb-5">{slide.desc}</p>
-                <button className="btn btn-primary mr-2">{slide.primaryBtn}</button>
-                <button className="btn btn-outline">{slide.secondaryBtn}</button>
+    <div className="relative w-full h-[70vh] overflow-hidden">
+      
+      <div 
+        className="flex h-full w-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+        {slides.map((slide) => (
+          <div key={slide.id} className="relative w-full h-full flex-shrink-0">
+            <div
+              className="hero w-full h-full"
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}>
+              <div className="hero-overlay bg-opacity-60"></div>
+              <div className="hero-content text-center text-neutral-content">
+                <div className="max-w-md">
+                  <h1 className="mb-5 text-4xl md:text-4xl lg:text-5xl font-bold">{slide.title}</h1>
+                  <p className="mb-5">{slide.desc}</p>
+                  <button className="btn btn-primary mr-2">{slide.primaryBtn}</button>
+                  <button className="btn btn-outline text-white">{slide.secondaryBtn}</button>
+                </div>
               </div>
             </div>
           </div>
+        ))}
+      </div>
 
-          {/* Navigation Buttons */}
-          <div className="absolute hidden md:flex flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <button onClick={handlePrev} className="btn btn-circle">❮</button>
-            <button onClick={handleNext} className="btn btn-circle">❯</button>
-          </div>
-        </div>
-      ))}
+      <div className="absolute hidden md:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 z-10">
+        <button onClick={handlePrev} className="btn btn-circle glass hover:bg-white/20 text-white">❮</button>
+        <button onClick={handleNext} className="btn btn-circle glass hover:bg-white/20 text-white">❯</button>
+      </div>
+
+
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        {slides.map((_, index) => (
+            <button key={index} onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? 'bg-primary w-6' : 'bg-white/50'}`}></button>
+        ))}
+      </div>
     </div>
   );
 };
