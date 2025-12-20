@@ -8,6 +8,9 @@ import Root from './Components/Root/Root.jsx';
 import Home from './Components/Pages/Home.jsx';
 import NotFound from './Components/Pages/NotFound.jsx';
 import AboutUs from './Components/Pages/AboutUs.jsx';
+import Login from './Components/Pages/Login.jsx';
+import { Toaster } from 'react-hot-toast';
+import AuthProvider from './Components/Firebase/AuthProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +19,7 @@ const router = createBrowserRouter([
     children:[
       {index: true, Component: Home},
       {path:'/about', Component: AboutUs},
-      
+      {path:'/login', Component: Login},
     ]
   },
   {path:'*', Component: NotFound},
@@ -24,6 +27,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider>
+    <Toaster position="top-right" reverseOrder={false} />
     <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
