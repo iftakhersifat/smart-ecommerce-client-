@@ -12,7 +12,32 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔄 Auth state observer
+
+  // Create user
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // Login
+  const userLogin = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // Google login
+  const registerWithGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // GitHub login
+  const registerWithGithub = () => {
+    setLoading(true);
+    return signInWithPopup(auth, githubProvider);
+  };
+
+  // Auth state observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
@@ -21,31 +46,7 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // 📌 Create user
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  // 🔐 Login
-  const userLogin = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  // 🔑 Google login
-  const registerWithGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleProvider);
-  };
-
-  // 🐙 GitHub login
-  const registerWithGithub = () => {
-    setLoading(true);
-    return signInWithPopup(auth, githubProvider);
-  };
-
-  // 🚪 Logout
+  // Logout
   const logOut = () => {
     setLoading(true);
     return signOut(auth);

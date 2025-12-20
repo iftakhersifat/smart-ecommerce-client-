@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../Firebase/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
+   const {user, logOut}=useContext(AuthContext);
+
+//  logout handel
+const handleLogOut =() =>{
+  logOut()
+  .then(()=>toast.success('Logout successfully!'))
+  .catch((error)=>toast.error(error.message || "Log out failed"))
+}
     const links = <>
     <li><NavLink to="/" className={({isActive})=> isActive ? 'text-blue-600 font-medium underline' : 'hover:text-indigo-500 font-medium transition'}>Home</NavLink></li>
     </>
@@ -44,7 +54,12 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
+    {user? <>
+    <button onClick={handleLogOut} className='btn bg-linear-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 shadow-md hover:shadow-lg text-white px-4 py-1 rounded-xl font-medium hover:bg-red-600 transition'>Log Out</button></> : <>
+    
     <NavLink className="bg-linear-to-r from-blue-500 to-indigo-600 shadow-lg hover:shadow-xl text-white px-4 py-1 rounded-lg font-medium hover:bg-blue-700" to="/login">Login</NavLink>
+    
+    </>}
   </div>
 </div>
         </div>
