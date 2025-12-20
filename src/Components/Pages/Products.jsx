@@ -1,25 +1,76 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
 
 const Products = ({ products }) => {
   return (
-    <div className='max-w-6xl mx-auto px-4 md:px-6 lg:px-0 mt-24'>
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12 bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent ">Featured Products
-      <div className="mt-2 w-20 h-0.5 mx-auto bg-linear-to-r from-cyan-400 to-indigo-500 opacity-80 rounded-full"></div>
-      </h2>
+    <div className="bg-base-200/50 py-20">
+      <div className="max-w-6xl mx-auto px-6">
 
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-primary font-bold tracking-widest uppercase text-xs">Our Collection</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mt-2 italic">
+            Featured <span className="text-primary">Products</span>
+          </h2>
+          <div className="mt-4 h-1.5 w-20 bg-linear-to-r from-primary to-secondary mx-auto rounded-full"></div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map(product => (
-          <div key={product.id} className="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between transform transition duration-300 hover:scale-105 hover:shadow-xl">
-            <div className="flex justify-center mb-4">
-              <img src={product.image} alt={product.title} className="h-48 object-contain"/>
+        {/* Products Grid */}
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+          {products.map((product) => (
+            <div key={product._id || product.id}
+              className="group flex flex-col bg-base-100 rounded-3xl overflow-hidden border border-base-300 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+
+              {/* image section */}
+              <div className="relative h-64 w-full bg-white overflow-hidden">
+                <img src={product.image} alt={product.title}
+                  className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110" />
+                
+                {/* dark overlay */}
+                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-80"></div>
+
+                {/* price */}
+                <span className="absolute top-4 right-4 bg-primary text-primary-content px-4 py-1 rounded-full font-semibold text-sm shadow-lg">${product.price}
+                </span>
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="flex-grow">
+                   <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-300">{product.title}
+                      </h3>
+                   </div>
+
+                  <p className="text-sm text-base-content/60 line-clamp-2 mb-4">
+                    {product.description}
+                  </p>
+                </div>
+
+                {/* button section */}
+                <div className="mt-auto">
+                  <button className="btn btn-primary btn-block rounded-2xl border-none shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 group-hover:gap-4">
+                    View Details
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-all">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2 line-clamp-2">{product.title}</h3>
-            <p className="text-gray-600 font-medium mb-4 text-lg">${product.price}</p>
-            <Link to={`/products/${product.id}`} className="btn bg-linear-to-r from-blue-500 to-indigo-600 w-full text-white hover:bg-blue-700">More Details</Link>
+          ))}
+        </div>
+
+        {/* if no products */}
+        {products.length === 0 && (
+          <div className="text-center py-24 bg-base-100 rounded-3xl border-2 border-dashed border-base-300">
+            <h3 className="text-2xl font-semibold text-base-content/50">
+              No products available right now.
+            </h3>
+            <p className="mt-2 text-base-content/40">
+              We are restocking soon. Please check back later!
+            </p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
