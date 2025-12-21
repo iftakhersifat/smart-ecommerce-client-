@@ -1,4 +1,6 @@
 import React from "react";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from "react-router";
 
 const Products = ({ products }) => {
   return (
@@ -16,7 +18,7 @@ const Products = ({ products }) => {
 
         {/* Products Grid */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((product) => (
+          {products?.map((product) => (
             <div key={product._id || product.id}
               className="group flex flex-col bg-base-100 rounded-3xl overflow-hidden border border-base-300 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
 
@@ -48,12 +50,9 @@ const Products = ({ products }) => {
 
                 {/* button section */}
                 <div className="mt-auto">
-                  <button className="btn btn-primary btn-block rounded-2xl border-none shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 group-hover:gap-4">
-                    View Details
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-all">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </button>
+                  <Link to={`/products/${product._id}`} className="btn btn-primary btn-block rounded-2xl border-none shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 group-hover:gap-4">
+                    View Details <FaArrowRightLong />
+                  </Link>
                 </div>
               </div>
             </div>
