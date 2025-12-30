@@ -18,7 +18,7 @@ import CheckoutPage from './Components/Products/CheckoutPage.jsx';
 
 import Private from './Components/Firebase/Private.jsx';
 import AdminPrivate from './Components/Firebase/AdminPrivate.jsx';
-import OrderConfirmation from './Components/Pages/OrderConfirmation.jsx';
+import OrderConfirmation from './Components/Products/OrderConfirmation.jsx';
 import MyOrders from './Components/Dashboard/MyOrders.jsx';
 
 import ManageUsers from './Components/Dashboard/ManageUsers.jsx';
@@ -41,9 +41,11 @@ const router = createBrowserRouter([
 
       {path:'/products-list', Component: ProductsGrid},
       {path:'/products/:id', Component: ProductDetails},
+
       {path:'/checkout/:id', element: <Private><CheckoutPage></CheckoutPage></Private>},
       {path:'/order-confirmation', element: <Private><OrderConfirmation></OrderConfirmation></Private>},
-      {path: "/dashboard", element: <MyOrders />},
+
+      {path: "/order-list", element: <MyOrders />},
       {path: "manage-users", element: <AdminPrivate><ManageUsers /></AdminPrivate>},
       // Router config file-e eivabe add koro
 {

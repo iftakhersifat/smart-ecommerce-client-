@@ -43,7 +43,7 @@ const Navbar = () => {
     <>
       <li><NavLink to="/" className={navStyle}>Home</NavLink></li>
       <li><NavLink to="/products-list" className={navStyle}><ShoppingBag size={18}/> Shop</NavLink></li>
-      <li><NavLink to="/dashboard" className={navStyle}><LayoutDashboard size={18}/> My Orders</NavLink></li>
+      <li><NavLink to="/order-list" className={navStyle}><LayoutDashboard size={18}/> My Orders</NavLink></li>
     </>
   );
 
