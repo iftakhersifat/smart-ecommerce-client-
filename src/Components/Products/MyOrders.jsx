@@ -9,7 +9,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext);
     const [myOrders, setMyOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('All');
+    const [activeTab, setActiveTab] = useState('All'); // Filter State
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,11 +29,12 @@ const MyOrders = () => {
         fetchOrders();
     }, [user]);
 
-
+    // Filter Logic
     const filteredOrders = activeTab === 'All' 
         ? myOrders 
         : myOrders.filter(order => order.status === activeTab);
 
+    // Dynamic Filter Tabs Configuration
     const tabs = [
         { name: 'All', icon: <FaBoxOpen /> },
         { name: 'Pending', icon: <FaRegClock /> },

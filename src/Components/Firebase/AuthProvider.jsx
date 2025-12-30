@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, GoogleAuthProvider,onAuthStateChanged, GithubAuthProvider } from "firebase/auth";
 import { auth, db } from "./Firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
@@ -84,30 +85,30 @@ const AuthProvider = ({ children }) => {
 
   // Listen for auth changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const ref = doc(db, "users", currentUser.uid);
-        const snap = await getDoc(ref);
+        const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                try {
+                    const response = await axios.get(`http://localhost:5000/users/${currentUser.email}`);
+                    if (response.data) {
+                        setUser({
+                            ...currentUser,
+                            role: response.data.role || "user",
+                        });
+                    } else {
+                        setUser(currentUser);
+                    }
+                } catch (error) {
+                    console.error("Error", error);
+                    setUser(currentUser);
+                }
+            } else {
+                setUser(null);
+            }
+            setLoading(false);
+        });
 
-        if (snap.exists()) {
-          const userData = snap.data();
-          setUser({
-            ...currentUser,
-            name: userData.name,
-            role: userData.role,
-            disabled: userData.disabled || false,
-          });
-        } else {
-          setUser(currentUser);
-        }
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+        return () => unsubscribeAuth();
+    }, []);
 
   const authInfo = {
     createUser,

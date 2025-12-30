@@ -19,13 +19,15 @@ import CheckoutPage from './Components/Products/CheckoutPage.jsx';
 import Private from './Components/Firebase/Private.jsx';
 import AdminPrivate from './Components/Firebase/AdminPrivate.jsx';
 import OrderConfirmation from './Components/Products/OrderConfirmation.jsx';
-import MyOrders from './Components/Dashboard/MyOrders.jsx';
+
 
 import ManageUsers from './Components/Dashboard/ManageUsers.jsx';
 import AdminLayout from './Components/Dashboard/AdminLayout.jsx';
 import ManageOrders from './Components/Dashboard/ManageOrders.jsx';
 import ManageProducts from './Components/Dashboard/ManageProducts.jsx';
 import AddProduct from './Components/Dashboard/AddProduct.jsx';
+import MyOrders from './Components/Products/MyOrders.jsx';
+import EmployeePrivate from './Components/Firebase/EmployeePrivate.jsx';
 
 
 
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
       // Router config file-e eivabe add koro
 {
   path: "/admin",
-  element: <AdminLayout />, // Ekhane sidebar layout thakbe
+  element: <EmployeePrivate><AdminLayout /></EmployeePrivate>, // Ekhane sidebar layout thakbe
   children: [
     {
       path: "manage-products",
