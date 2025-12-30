@@ -12,8 +12,22 @@ import Login from './Components/Pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
 import AuthProvider from './Components/Firebase/AuthProvider.jsx';
 import Register from './Components/Pages/Register.jsx';
-import ProductDetails from './Components/Pages/ProductDetails.jsx';
-import ProductsGrid from './Components/Pages/ProductsGrid.jsx';
+import ProductDetails from './Components/Products/ProductDetails.jsx';
+import ProductsGrid from './Components/Products/ProductsGrid.jsx';
+
+import CheckoutPage from './Components/Pages/CheckoutPage.jsx';
+import Private from './Components/Firebase/Private.jsx';
+import AdminPrivate from './Components/Firebase/AdminPrivate.jsx';
+import OrderConfirmation from './Components/Pages/OrderConfirmation.jsx';
+import MyOrders from './Components/Dashboard/MyOrders.jsx';
+
+import AdminPanel from './Components/Pages/AdminPanel.jsx';
+import ManageUsers from './Components/Dashboard/ManageUsers.jsx';
+import AdminLayout from './Components/Dashboard/AdminLayout.jsx';
+import ManageOrders from './Components/Dashboard/ManageOrders.jsx';
+import ManageProducts from './Components/Dashboard/ManageProducts.jsx';
+import AddProduct from './Components/Dashboard/AddProduct.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -26,6 +40,35 @@ const router = createBrowserRouter([
       {path:'/register', Component: Register},
       {path:'/products-list', Component: ProductsGrid},
       {path:'/products/:id', Component: ProductDetails},
+      {path:'/checkout/:id', element: <Private><CheckoutPage></CheckoutPage></Private>},
+      {path:'/order-confirmation', element: <Private><OrderConfirmation></OrderConfirmation></Private>},
+      {path: "/dashboard", element: <MyOrders />},
+      {path: "manage-users", element: <AdminPrivate><ManageUsers /></AdminPrivate>},
+      // Router config file-e eivabe add koro
+{
+  path: "/admin",
+  element: <AdminLayout />, // Ekhane sidebar layout thakbe
+  children: [
+    {
+      path: "manage-products",
+      element: <ManageProducts />
+    },
+    {
+      path: "add-product",
+      element: <AddProduct />
+    },
+    {
+      path: "manage-orders",
+      element: <ManageOrders />
+    }
+  ]
+}
+
+      // {path:"/admin", element: <AdminPanel></AdminPanel>}
+
+      
+
+
     ]
   },
   {path:'*', Component: NotFound},

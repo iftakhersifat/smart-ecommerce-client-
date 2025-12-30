@@ -28,8 +28,8 @@ const ProductsGrid = () => {
   }
 
   return (
-    <div className="bg-base-200/50 py-20">
-          <div className="max-w-6xl mx-auto px-6">
+    <div className="py-20">
+          <div className="max-w-6xl mx-auto px-6 md:px-6 lg:px-0">
             
             <div className="grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
               {products?.map((product) => (
@@ -53,12 +53,10 @@ const ProductsGrid = () => {
                   <div className="p-6 flex flex-col flex-grow">
                     <div className="flex-grow">
                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-300">{product.title}
-                          </h3>
+                          <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-300">{product.title}</h3>
                        </div>
     
-                      <p className="text-sm text-base-content/60 line-clamp-2 mb-4">
-                        {product.description}
+                      <p className="text-sm text-base-content/60 line-clamp-2 mb-4">{product.description}
                       </p>
                     </div>
     
@@ -76,12 +74,8 @@ const ProductsGrid = () => {
             {/* if no products */}
             {products.length === 0 && (
               <div className="text-center py-24 bg-base-100 rounded-3xl border-2 border-dashed border-base-300">
-                <h3 className="text-2xl font-semibold text-base-content/50">
-                  No products available right now.
-                </h3>
-                <p className="mt-2 text-base-content/40">
-                  We are restocking soon. Please check back later!
-                </p>
+                <h3 className="text-2xl font-semibold text-base-content/50">No products available right now.</h3>
+                <p className="mt-2 text-base-content/40">We are restocking soon. Please check back later!</p>
               </div>
             )}
           </div>

@@ -4,7 +4,7 @@ const HeroSlider = () => {
   const slides = [
     {
       id: 1,
-      image: "/public/assets/banner1.jpeg",
+      image: "/assets/banner1.jpeg",
       title: "Smart Shopping Experience",
       desc: "Discover premium products with fast delivery and secure payment.",
       primaryBtn: "Shop Now",
@@ -12,7 +12,7 @@ const HeroSlider = () => {
     },
     {
       id: 2,
-      image: "/public/assets/banner2.jpeg",
+      image: "/assets/banner2.jpeg",
       title: "Book Professional Services",
       desc: "Trusted experts for your business and personal needs.",
       primaryBtn: "Get Services",
@@ -20,7 +20,7 @@ const HeroSlider = () => {
     },
     {
       id: 3,
-      image: "/public/assets/banner3.jpg",
+      image: "/assets/banner3.jpg",
       title: "Manage Orders Easily",
       desc: "Track, update, and manage orders from one dashboard.",
       primaryBtn: "Dashboard",
@@ -54,8 +54,7 @@ const HeroSlider = () => {
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
         {slides.map((slide) => (
           <div key={slide.id} className="relative w-full h-full flex-shrink-0">
-            <div
-              className="hero w-full h-full"
+            <div className="hero w-full h-full"
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',

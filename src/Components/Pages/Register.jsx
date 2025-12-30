@@ -4,6 +4,7 @@ import { AuthContext } from '../Firebase/AuthProvider';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import SocialRegister from './SocialRegister';
+import axios from 'axios';
 
 const Register = () => {
     // for create user
@@ -20,39 +21,34 @@ const Register = () => {
     const [error, setError] = useState('');
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-    const handelRegister=e=>{
-        e.preventDefault();
-        const name = e.target.name.value;
-        const email =e.target.email.value;
-        const pass = e.target.password.value;
-        const photo = e.target.photo.value;
-        console.log(name,email,pass,photo);
+    const handelRegister = e => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const pass = e.target.password.value;
+    const photo = e.target.photo.value;
 
-        if (!passwordRegex.test(pass)) {
-        setError("Password must contain at least one uppercase letter, one lowercase letter, and be at least 8 characters long.");
+    if (!passwordRegex.test(pass)) {
+        setError("Password must contain at least one uppercase letter...");
         return;
-        }
-
-        // for create new user
-        createUser(email, pass).then(result=>{
-            console.log(result);
-            toast.success("Successfully Registered", { duration: 3000 });
-            navigate("/")
-
-          UpdateUser({
-          displayName: name,
-          photoURL: photo,
-        })
-          .then(() => {
-            console.log("Profile updated!");
-            navigate(from);
-          })
-          .catch(err => console.error("Profile update failed:", err));
-        }).catch(error=>{
-            toast.error(error.message || "Failed to Register", { duration: 4000 });
-
-        })
     }
+
+    createUser(email, pass).then(result => {
+        // --- ADDED: Backend-e user save kora ---
+        const newUser = { name, email, photo, role: 'user' };
+        axios.post('http://localhost:5000/users', newUser)
+            .then(res => console.log('User saved to MongoDB:', res.data))
+            .catch(err => console.error('Error saving user:', err));
+        // --------------------------------------
+
+        toast.success("Successfully Registered", { duration: 3000 });
+        UpdateUser({ displayName: name, photoURL: photo })
+            .then(() => navigate(from))
+            .catch(err => console.error("Profile update failed:", err));
+    }).catch(error => {
+        toast.error(error.message || "Failed to Register");
+    });
+}
     return (
         <div>
             <div className="hero w-full mt-24">

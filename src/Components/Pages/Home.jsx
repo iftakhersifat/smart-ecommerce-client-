@@ -1,32 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import HeroSlider from './HeroSlider';
-import Products from './Products';
+import Products from '../Products/Products';
+import axios from 'axios';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data);
+    axios.get("http://localhost:5000/products")
+      .then(res => {
+        setProducts(res.data);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Failed to fetch products:", err);
+        console.error("Fetch error:", err);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
-    return <div className="text-center mt-20">Loading products...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <span className="loading loading-ring loading-lg text-primary"></span>
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div className="space-y-10 pb-10">
       <HeroSlider />
-      <Products products={products} />
+
+      {/* product section */}
+      {products.length > 0 ? (<Products products={products} />) : 
+      (<div className="text-center py-20 text-gray-500">No products found in the database.</div>)}
     </div>
   );
 };

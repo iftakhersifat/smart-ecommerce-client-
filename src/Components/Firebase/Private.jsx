@@ -1,17 +1,25 @@
-import React, { use } from 'react';
+import React, { useContext } from 'react'; // 'use' er poriborte 'useContext'
 import { AuthContext } from './AuthProvider';
 import { Navigate, useLocation } from 'react-router';
 
-const Private = ({children}) => {
-    const {user, loading}=use(AuthContext)
+const Private = ({ children }) => {
+    // useContext hook bebohar koro
+    const { user, loading } = useContext(AuthContext);
     const location = useLocation();
-    console.log(location.pathname)
+
     if (loading) {
-    return <div className="text-center mt-10 text-lg">Loading user info...</div>;
-  }
-    if(!user){
-        return <Navigate to='/login' state={location.pathname}></Navigate>
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+        );
     }
+
+    if (!user) {
+        // User login na thakle login page-e pathaw ebong 'from' state-e location rakho
+        return <Navigate to='/login' state={location.pathname} replace />;
+    }
+
     return children;
 };
 

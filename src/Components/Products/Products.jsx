@@ -4,10 +4,10 @@ import { Link } from "react-router";
 
 const Products = ({ products }) => {
   return (
-    <div className="bg-base-200/50 py-20">
-      <div className="max-w-6xl mx-auto px-6">
+    <div className="py-20">
+      <div className="max-w-6xl mx-auto px-6 md:px-6 lg:px-0">
 
-        {/* Section Header */}
+        {/* title & description section */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary font-bold tracking-widest uppercase text-xs">Our Collection</span>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mt-2 italic">
@@ -16,7 +16,7 @@ const Products = ({ products }) => {
           <div className="mt-4 h-1.5 w-20 bg-linear-to-r from-primary to-secondary mx-auto rounded-full"></div>
         </div>
 
-        {/* Products Grid */}
+        {/* show products */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {products?.map((product) => (
             <div key={product._id || product.id}
