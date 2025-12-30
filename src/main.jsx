@@ -27,7 +27,6 @@ import ManageOrders from './Components/Dashboard/ManageOrders.jsx';
 import ManageProducts from './Components/Dashboard/ManageProducts.jsx';
 import AddProduct from './Components/Dashboard/AddProduct.jsx';
 import MyOrders from './Components/Products/MyOrders.jsx';
-import EmployeePrivate from './Components/Firebase/EmployeePrivate.jsx';
 
 
 
@@ -52,7 +51,7 @@ const router = createBrowserRouter([
       // Router config file-e eivabe add koro
 {
   path: "/admin",
-  element: <EmployeePrivate><AdminLayout /></EmployeePrivate>, // Ekhane sidebar layout thakbe
+  element: <AdminPrivate><AdminLayout /></AdminPrivate>,
   children: [
     {
       path: "manage-products",

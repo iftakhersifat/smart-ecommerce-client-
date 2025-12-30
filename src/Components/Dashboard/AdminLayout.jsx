@@ -4,7 +4,7 @@ import { FaBoxOpen, FaPlusCircle, FaShoppingCart, FaUsers, FaHome } from 'react-
 
 const AdminLayout = () => {
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-base-200">
+        <div className="flex flex-col -mb-24 md:flex-row min-h-screen bg-base-200">
             {/* Sidebar */}
             <div className="w-full md:w-64 bg-slate-900 text-white p-6">
                 <h2 className="text-2xl font-black mb-10 text-indigo-400">Admin Panel</h2>
