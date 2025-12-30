@@ -14,8 +14,8 @@ import AuthProvider from './Components/Firebase/AuthProvider.jsx';
 import Register from './Components/Pages/Register.jsx';
 import ProductDetails from './Components/Products/ProductDetails.jsx';
 import ProductsGrid from './Components/Products/ProductsGrid.jsx';
+import CheckoutPage from './Components/Products/CheckoutPage.jsx';
 
-import CheckoutPage from './Components/Pages/CheckoutPage.jsx';
 import Private from './Components/Firebase/Private.jsx';
 import AdminPrivate from './Components/Firebase/AdminPrivate.jsx';
 import OrderConfirmation from './Components/Pages/OrderConfirmation.jsx';
@@ -28,6 +28,7 @@ import ManageProducts from './Components/Dashboard/ManageProducts.jsx';
 import AddProduct from './Components/Dashboard/AddProduct.jsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       {path:'/about', Component: AboutUs},
       {path:'/login', Component: Login},
       {path:'/register', Component: Register},
+
       {path:'/products-list', Component: ProductsGrid},
       {path:'/products/:id', Component: ProductDetails},
       {path:'/checkout/:id', element: <Private><CheckoutPage></CheckoutPage></Private>},

@@ -62,7 +62,7 @@ const CheckoutPage = () => {
   if (!product) return <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900"><span className="loading loading-spinner loading-lg text-primary"></span></div>;
 
   return (
-    <div className="bg-gray-50 dark:bg-slate-900 min-h-screen pb-20 transition-colors duration-300">
+    <div className="bg-gray-50 -mb-24 dark:-mb-24 dark:bg-slate-900 min-h-screen pb-20 transition-colors duration-300">
       {/* Header bar */}
       <div className="bg-white dark:bg-slate-800 dark:border-slate-700 py-4 mb-8">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
