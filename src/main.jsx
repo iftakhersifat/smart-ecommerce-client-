@@ -21,7 +21,6 @@ import AdminPrivate from './Components/Firebase/AdminPrivate.jsx';
 import OrderConfirmation from './Components/Pages/OrderConfirmation.jsx';
 import MyOrders from './Components/Dashboard/MyOrders.jsx';
 
-import AdminPanel from './Components/Pages/AdminPanel.jsx';
 import ManageUsers from './Components/Dashboard/ManageUsers.jsx';
 import AdminLayout from './Components/Dashboard/AdminLayout.jsx';
 import ManageOrders from './Components/Dashboard/ManageOrders.jsx';
