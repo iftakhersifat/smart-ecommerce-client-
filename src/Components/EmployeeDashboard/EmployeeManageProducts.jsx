@@ -11,9 +11,6 @@ const EmployeeManageProducts = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedProduct, setSelectedProduct] = useState(null);
 
-    // আপনার AuthContext বা Firebase থেকে লগইন করা ইউজারের ইমেইল এখানে বসবে
-    // উদাহরণ: const { user } = useContext(AuthContext);
-    // const loggedInUserEmail = user?.email;
     const loggedInUserEmail = "employee@example.com"; 
 
     const fetchProducts = () => {
@@ -22,7 +19,6 @@ const EmployeeManageProducts = () => {
         setLoading(true);
         setIsRefreshing(true);
 
-        // ইমেইল কুয়েরি প্যারামিটার হিসেবে পাঠানো হচ্ছে
         axios.get(`http://localhost:5000/products?email=${loggedInUserEmail}`)
             .then(res => {
                 setProducts(res.data);
@@ -37,7 +33,7 @@ const EmployeeManageProducts = () => {
 
     useEffect(() => { 
         fetchProducts(); 
-    }, [loggedInUserEmail]); // ইমেইল চেঞ্জ হলে বা পেজ লোড হলে কল হবে
+    }, [loggedInUserEmail]);
 
     const filteredProducts = products.filter(p => 
         (p.title || p.name)?.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -129,7 +125,7 @@ const EmployeeManageProducts = () => {
                     </div>
                 </div>
 
-                {/* Content Table/Cards */}
+                {/* Content Table */}
                 <div className="bg-white dark:bg-slate-900 rounded-2xl md:rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 dark:border-slate-800">
                     <div className="hidden md:block overflow-x-auto">
                         <table className="table w-full">
@@ -176,7 +172,6 @@ const EmployeeManageProducts = () => {
                         </table>
                     </div>
 
-                    {/* Mobile Card View */}
                     <div className="md:hidden grid grid-cols-1 divide-y dark:divide-slate-800">
                         {loading && !isRefreshing ? (
                             <div className="text-center py-10"><span className="loading loading-spinner text-indigo-600"></span></div>

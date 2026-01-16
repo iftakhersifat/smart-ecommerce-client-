@@ -13,7 +13,6 @@ const AdminLayout = () => {
     const navigate = useNavigate();
     const profileRef = useRef(null);
 
-    // Logout function
     const handleLogout = async () => {
         try {
             await logOut();
@@ -22,8 +21,6 @@ const AdminLayout = () => {
             console.error("Logout error", error);
         }
     };
-
-    // Close profile popover on outside click
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -43,30 +40,25 @@ const AdminLayout = () => {
 
     const navLinkStyles = ({ isActive }) => 
         `flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 ${
-            isActive 
-            ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" 
-            : "text-slate-500 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-white"
+            isActive ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" : "text-slate-500 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-white"
         }`;
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-[#0b0e14] transition-colors duration-500">
             
-            {/* Sidebar Container */}
+            {/* Sidebar */}
             <aside className={`fixed md:sticky top-0 h-screen bg-white dark:bg-[#11141b] border-r border-slate-200 dark:border-white/5 transition-all duration-500 z-50 
                 ${isExpanded ? "w-72" : "w-20"} 
-                ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-            `}>
+                ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
                 
-                {/* Desktop Toggle Button */}
                 <button 
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="hidden md:flex absolute -right-3 top-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-6 h-6 rounded-full items-center justify-center text-[10px] shadow-md z-50 hover:scale-110 transition-transform cursor-pointer"
-                >
+                    className="hidden md:flex absolute -right-3 top-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-6 h-6 rounded-full items-center justify-center text-[10px] shadow-md z-50 hover:scale-110 transition-transform cursor-pointer">
                     {isExpanded ? <FaChevronLeft className="text-slate-500" /> : <FaChevronRight className="text-slate-500" />}
                 </button>
 
                 <div className="flex flex-col h-full p-4">
-                    {/* Admin Brand Logo */}
+                    {/* Logo */}
                     <div className={`flex items-center gap-3 mb-10 mt-2 px-2 ${!isExpanded && "md:justify-center"}`}>
                         <div className="min-w-[40px] h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-xl shadow-indigo-600/30">
                             <RiAdminFill size={20} />
@@ -78,7 +70,6 @@ const AdminLayout = () => {
                         )}
                     </div>
 
-                    {/* Navigation Menu */}
                     <nav className="flex-1 space-y-2 overflow-y-auto no-scrollbar">
                         {menuItems.map((item) => (
                             <NavLink key={item.path} to={item.path} onClick={() => setIsMobileMenuOpen(false)} className={navLinkStyles}>
@@ -88,7 +79,7 @@ const AdminLayout = () => {
                         ))}
                     </nav>
 
-                    {/* Sidebar Footer - User Profile Popover */}
+                    {/* Footer */}
                     <div className="relative mt-auto pt-4 border-t border-slate-100 dark:border-white/5" ref={profileRef}>
                         <button 
                             onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -129,33 +120,27 @@ const AdminLayout = () => {
                 </div>
             </aside>
 
-            {/* Mobile Sidebar Overlay */}
+            {/* Overlay */}
             {isMobileMenuOpen && (
                 <div 
                     onClick={() => setIsMobileMenuOpen(false)} 
-                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"
-                />
+                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"/>
             )}
 
-            {/* Main Content Body */}
+            {/* Main Content*/}
             <main className="flex-1 flex flex-col min-w-0">
-                {/* Navbar for Mobile & Header info */}
                 <header className="h-16  md:hidden lg:fixed flex items-center justify-between px-6 bg-white/80 dark:bg-[#0b0e14]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5 sticky top-0 z-40">
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={() => setIsMobileMenuOpen(true)} 
-                            className="md:hidden p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400"
-                        >
+                            className="md:hidden p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400">
                             <FaBars size={18} />
                         </button>
-                        {/* <h1 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] hidden sm:block">
-                            System / {user?.role}
-                        </h1> */}
                     </div>
                     
                 </header>
 
-                {/* Page Content */}
+                {/* Pages */}
                 <div className="p-4 md:p-10 flex-1">
                     <div className="max-w-7xl mx-auto">
                          <Outlet />
