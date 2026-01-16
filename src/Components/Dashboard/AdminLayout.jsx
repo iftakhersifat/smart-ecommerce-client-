@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router';
 import { FaBoxOpen, FaPlusCircle, FaShoppingCart, FaUsers, FaHome, FaChevronLeft, FaChevronRight, FaSignOutAlt, FaBars } from 'react-icons/fa';
 import { RiAdminFill } from "react-icons/ri";
 import { AuthContext } from '../Firebase/AuthProvider';
+import { LuBotMessageSquare } from "react-icons/lu";
 
 
 const AdminLayout = () => {
@@ -36,6 +37,7 @@ const AdminLayout = () => {
         { path: "/admin/add-product", label: "Add Product", icon: <FaPlusCircle /> },
         { path: "/admin/manage-orders", label: "All Orders", icon: <FaShoppingCart /> },
         { path: "/admin/manage-users", label: "User Management", icon: <FaUsers /> },
+        { path: "/admin/messages", label: "Messages", icon: <LuBotMessageSquare /> },
     ];
 
     const navLinkStyles = ({ isActive }) => 

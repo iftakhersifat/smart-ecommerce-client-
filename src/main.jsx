@@ -34,6 +34,8 @@ import Wishlist from './Components/Products/Wishlist.jsx';
 import Compare from './Components/Products/Compare.jsx';
 import ProfileUpdate from './Components/Dashboard/ProfileUpdate.jsx';
 import AIChatbot from './Components/Products/AIChatbot.jsx';
+import ContactSection from './Components/Pages/ContactSection.jsx';
+import AdminMessages from './Components/Dashboard/AdminMessages.jsx';
 
 
 
@@ -55,6 +57,7 @@ const router = createBrowserRouter([
       {path: "/order-list", element: <MyOrders />},
       {path: "/profile", element: <ProfileUpdate />},
       {path: "/chatbot", element: <AIChatbot />},
+      {path: "/contact", element: <ContactSection />},
     ]
   },
 
@@ -75,7 +78,8 @@ const router = createBrowserRouter([
       {path: "manage-products", element: <ManageProducts />},
       {path: "add-product", element: <AddProduct />},
       {path: "manage-orders", element: <ManageOrders />},
-      {path: "manage-users", element: <ManageUsers />}
+      {path: "manage-users", element: <ManageUsers />},
+      {path: "messages", element: <AdminMessages />}
     ],
   },
 

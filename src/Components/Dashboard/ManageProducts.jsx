@@ -122,10 +122,10 @@ const ManageProducts = () => {
                             Manage and monitor your store products ({products.length} items total)
                         </p>
                     </div>
-                    <Link to="/admin/add-product" className="group btn bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-2xl px-6 h-14 shadow-xl shadow-indigo-100 dark:shadow-none transition-all hover:scale-105 active:scale-95">
+                    {/* <Link to="/admin/add-product" className="group btn bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-2xl px-6 h-14 shadow-xl shadow-indigo-100 dark:shadow-none transition-all hover:scale-105 active:scale-95">
                         <FaPlus className="group-hover:rotate-90 transition-transform" />
                         <span>Add New Product</span>
-                    </Link>
+                    </Link> */}
                 </div>
 
                 {/* Filters & Search */}
