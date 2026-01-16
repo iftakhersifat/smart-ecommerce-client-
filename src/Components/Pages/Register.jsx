@@ -100,7 +100,7 @@ const Register = () => {
                 <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm">
                     <form onSubmit={handelRegister} className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         
-                        {/* Name Input */}
+                        {/* name input */}
                         <div className="space-y-2 md:col-span-1">
                             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
                             <div className="relative">
@@ -109,7 +109,7 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Email Input */}
+                        {/* email input */}
                         <div className="space-y-2 md:col-span-1">
                             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Email</label>
                             <div className="relative">
@@ -118,7 +118,7 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* ImgBB Upload Section */}
+                        {/* ImgBB upload section */}
                         <div className="space-y-2 md:col-span-2">
                             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Profile Photo</label>
                             <div className="relative">
@@ -141,7 +141,7 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Password Input */}
+                        {/* password input */}
                         <div className="space-y-2 md:col-span-2">
                             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Password</label>
                             <div className="relative">

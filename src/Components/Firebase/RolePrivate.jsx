@@ -12,7 +12,7 @@ const RolePrivate = ({ children, allowedRoles }) => {
   if (!allowedRoles.includes(user.role)) {
     return (
       <p className="text-center text-red-500 font-semibold mt-10">
-        ❌ You are not authorized to access this page
+        You are not authorized to access this page
       </p>
     );
   }

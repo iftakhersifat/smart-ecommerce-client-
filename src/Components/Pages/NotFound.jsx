@@ -18,9 +18,7 @@ const NotFound = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="text-[120px] md:text-[200px] font-black leading-none tracking-tighter text-slate-200 dark:text-zinc-900 select-none"
-                    >
-                        404
+                        className="text-[120px] md:text-[200px] font-black leading-none tracking-tighter text-slate-200 dark:text-zinc-900 select-none">404
                     </motion.div>
                     
                     <motion.div
@@ -33,8 +31,7 @@ const NotFound = () => {
                             repeat: Infinity, 
                             ease: "easeInOut" 
                         }}
-                        className="absolute inset-0 flex items-center justify-center"
-                    >
+                        className="absolute inset-0 flex items-center justify-center">
                         <div className="p-6 bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl shadow-indigo-200 dark:shadow-none border border-slate-100 dark:border-zinc-700">
                             <ShoppingCart size={60} className="text-indigo-600" strokeWidth={1.5} />
                         </div>
@@ -45,8 +42,7 @@ const NotFound = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="text-center z-10"
-                >
+                    className="text-center z-10">
                     <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">
                         Lost in the <span className="text-indigo-600">SmartStore?</span>
                     </h2>
@@ -59,10 +55,8 @@ const NotFound = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all uppercase text-xs tracking-widest"
-                            >
-                                <Home size={18} />
-                                Back to Home
+                                className="flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all uppercase text-xs tracking-widest">
+                                <Home size={18} />Back to Home
                             </motion.button>
                         </Link>
                         
@@ -70,10 +64,8 @@ const NotFound = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center gap-2 px-8 py-4 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white border border-slate-200 dark:border-zinc-700 rounded-2xl font-bold hover:bg-slate-50 transition-all uppercase text-xs tracking-widest"
-                            >
-                                <Search size={18} />
-                                Browse Shop
+                                className="flex items-center gap-2 px-8 py-4 bg-white dark:bg-zinc-800 text-slate-900 dark:text-white border border-slate-200 dark:border-zinc-700 rounded-2xl font-bold hover:bg-slate-50 transition-all uppercase text-xs tracking-widest">
+                                <Search size={18} />Browse Shop
                             </motion.button>
                         </Link>
                     </div>
@@ -82,10 +74,8 @@ const NotFound = () => {
                 <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.5 }}
-                    className="mt-16 flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px]"
-                >
-                    <div className="h-[1px] w-8 bg-slate-300"></div>
-                    SmartStore 404 Error
+                    className="mt-16 flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px]">
+                    <div className="h-[1px] w-8 bg-slate-300"></div>SmartStore 404 Error
                     <div className="h-[1px] w-8 bg-slate-300"></div>
                 </motion.div>
             </div>

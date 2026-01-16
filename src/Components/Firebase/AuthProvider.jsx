@@ -12,19 +12,19 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Register with email/password
+  // register with email/password
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Login with email/password
+  // login with email/password
   const userLogin = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Google login/register
+  // google login/register
   const registerWithGoogle = async () => {
     setLoading(true);
     try {
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       const snap = await getDoc(ref);
 
       if (!snap.exists()) {
-        // New user: create Firestore document
+        // new user
         await setDoc(ref, {
           name: currentUser.displayName || "No Name",
           email: currentUser.email,
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout
+  // logout
   const logOut = () => signOut(auth);
 
   // Update profile
@@ -77,13 +77,13 @@ const AuthProvider = ({ children }) => {
   };
 
   
-  // GitHub login
+  // gitHub login
   const registerWithGithub = () => {
     setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
 
-  // Listen for auth changes
+  // listen for auth changes
   useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
@@ -94,15 +94,12 @@ const AuthProvider = ({ children }) => {
                             ...currentUser,
                             role: response.data.role || "user",
                         });
-                    } else {
-                        setUser(currentUser);
-                    }
+                    } else {setUser(currentUser);}
                 } catch (error) {
                     console.error("Error", error);
                     setUser(currentUser);
                 }
-            } else {
-                setUser(null);
+            } else {setUser(null);
             }
             setLoading(false);
         });

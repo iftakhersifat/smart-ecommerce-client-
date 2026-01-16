@@ -12,7 +12,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // স্ক্রল লক করার জন্য ফিক্সড ইফেক্ট
   useEffect(() => {
     const html = document.querySelector('html');
     if (isDrawerOpen) {
@@ -49,9 +48,7 @@ const Navbar = () => {
 
   const navStyle = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 text-sm font-bold tracking-tight ${
-      isActive
-        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
-        : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-zinc-800"
+      isActive ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none" : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-zinc-800"
     }`;
 
   const commonLinks = (
@@ -70,20 +67,15 @@ const Navbar = () => {
 
   return (
     <>
-      {/* নেভবার কন্টেইনার */}
       <div className={`sticky top-0 z-[60] transition-all duration-500 ${
-        scrolled 
-        ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-zinc-800 py-3" 
-        : "bg-white dark:bg-zinc-950 lg:bg-transparent py-5"
-      }`}>
+        scrolled ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-zinc-800 py-3" : "bg-white dark:bg-zinc-950 lg:bg-transparent py-5"}`}>
         <div className="max-w-6xl mx-auto px-6 md:px-6 lg:px-0">
           <div className="flex items-center justify-between">
             
             <div className="flex items-center gap-4">
               <button 
                 onClick={() => setIsDrawerOpen(true)}
-                className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-white active:scale-90 transition-transform"
-              >
+                className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-white active:scale-90 transition-transform">
                 <FiMenu size={24} />
               </button>
 
@@ -97,7 +89,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* ডেস্কটপ মেনু */}
             <div className="hidden lg:flex bg-slate-100/50 dark:bg-zinc-900/50 p-1.5 rounded-2xl border border-slate-200/50 dark:border-white/5">
               <div className="flex items-center gap-1">{commonLinks}</div>
             </div>
@@ -106,8 +97,7 @@ const Navbar = () => {
               {user?.role && user.role !== 'customer' && (
                 <Link 
                   to={user.role === 'admin' ? "/admin/manage-products" : "/employee/manage-products"}
-                  className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-xl text-[9px] font-black uppercase tracking-widest border border-amber-500/20"
-                >
+                  className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-xl text-[9px] font-black uppercase tracking-widest border border-amber-500/20">
                   <FaUsersCog size={12}/> {user.role} Panel
                 </Link>
               )}
@@ -129,7 +119,6 @@ const Navbar = () => {
                         <p className="text-[10px] text-slate-500 truncate uppercase tracking-widest font-black">{user?.role || "Customer"}</p>
                       </div>
                       <li><Link to="/profile" className="py-2.5 font-bold text-slate-600 dark:text-slate-300"><FiUser size={16}/> Profile</Link></li>
-                      <li><Link to="/settings" className="py-2.5 font-bold text-slate-600 dark:text-slate-300"><FiSettings size={16}/> Settings</Link></li>
                       <div className="divider my-1 opacity-50"></div>
                       <button onClick={handleLogOut} className="w-full py-2.5 bg-rose-50 dark:bg-rose-500/10 text-rose-500 rounded-xl font-black text-[10px] uppercase tracking-widest">Sign Out</button>
                   </ul>
@@ -142,15 +131,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* --- মোবাইল ড্রয়ার ফিক্সড (এটি নেভবার ডিভাইডার এর বাইরে থাকবে) --- */}
+
       <div className={`fixed inset-0 z-[100] transition-all duration-500 ${isDrawerOpen ? "visible opacity-100" : "invisible opacity-0"}`}>
-        {/* ব্যাকড্রপ ওভারলে */}
         <div 
           className={`absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity duration-500 ${isDrawerOpen ? "opacity-100" : "opacity-0"}`} 
-          onClick={() => setIsDrawerOpen(false)}
-        ></div>
+          onClick={() => setIsDrawerOpen(false)}></div>
 
-        {/* ড্রয়ার কন্টেন্ট */}
         <div className={`absolute left-0 top-0 h-full w-[280px] sm:w-[320px] bg-white dark:bg-zinc-950 shadow-2xl transition-transform duration-500 ease-in-out ${isDrawerOpen ? "translate-x-0" : "-translate-x-full"}`}>
           <div className="flex flex-col h-full">
             <div className="p-6 flex items-center justify-between border-b dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/50">
@@ -164,7 +150,6 @@ const Navbar = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-              {/* এডমিন/এমপ্লয়ি প্যানেল মোবাইল */}
               {user?.role && user.role !== 'customer' && (
                 <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
                   <p className="text-[10px] font-black uppercase text-amber-600 tracking-[0.2em] mb-3">Management Access</p>

@@ -49,7 +49,6 @@ const HeroSlider = () => {
   return (
     <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-[85vh] overflow-hidden bg-slate-900">
       
-      {/* Slides Wrapper */}
       <div 
         className="flex h-full transition-transform duration-1000]"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
@@ -57,7 +56,6 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <div key={slide.id} className="relative w-full h-full flex-shrink-0">
             
-            {/* Background Image with Zoom on Active */}
             <div 
               className={`absolute inset-0 transition-transform duration-[5000ms] ${currentSlide === index ? 'scale-110' : 'scale-100'}`}
               style={{
@@ -67,31 +65,27 @@ const HeroSlider = () => {
               }}>
             </div>
 
-            {/* Overlay */}
+            {/* overlay */}
             <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
 
-            {/* Content Container */}
+            {/* container */}
             <div className="relative h-full max-w-7xl mx-auto px-6 md:px-22 lg:px-20 flex items-center">
               <div className="max-w-xl md:max-w-2xl lg:max-w-6xl text-left">
                 
-                {/* Tagline */}
                 <div className={`mb-4 transition-all duration-700 delay-100 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
                   <span className="bg-indigo-600 px-3 py-1 rounded text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
                     {slide.tag}
                   </span>
                 </div>
 
-                {/* Main Title */}
                 <h1 className={`text-3xl md:text-2xl lg:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 transition-all duration-1000 delay-200 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
                   {slide.title}
                 </h1>
-
-                {/* Description - Hidden on small, shown on md+ */}
                 <p className={`hidden md:block text-base md:text-md lg:text-lg text-slate-300 mb-8 leading-relaxed transition-all duration-1000 delay-300 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
                   {slide.desc}
                 </p>
 
-                {/* Buttons */}
+                {/* buttons */}
                 <div className={`flex items-center gap-4 transition-all duration-1000 delay-400 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
                   <button onClick={() => navigate(slide.link)} className="px-6 lg:px-8 md:px-3 py-3 md:py-2 lg:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg transition-transform active:scale-95 text-sm md:text-base">
                     {slide.primaryBtn}
@@ -107,7 +101,6 @@ const HeroSlider = () => {
         ))}
       </div>
 
-      {/* Navigation - Hidden on mobile, shown on md+ */}
       <div className="absolute hidden md:flex justify-between items-center w-full px-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
         <button 
           onClick={handlePrev} 
@@ -121,7 +114,6 @@ const HeroSlider = () => {
         </button>
       </div>
 
-      {/* Indicators - Responsive Width */}
       <div className="absolute bottom-6 md:bottom-2 lg:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
         {slides.map((_, index) => (
           <button 

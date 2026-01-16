@@ -14,7 +14,7 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-white transition-colors duration-500 pb-24">
       
-      {/* 1. Hero Section - The Modern Marketplace */}
+      {/* hero sectio */}
       <section className="relative pt-32 pb-56 overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-white/5">
         <div className="max-w-6xl mx-auto px-6 md:px-6 lg:px-0 relative z-10">
           <div className="flex flex-col gap-6">
@@ -36,7 +36,7 @@ const AboutUs = () => {
 
       <div className="max-w-6xl mx-auto px-6 md:px-6 lg:px-0  -mt-32 relative z-20">
         
-        {/* 2. Realistic Mission & Vision Cards */}
+        {/* mission & vision */}
         <div className="grid md:grid-cols-2 gap-8 mb-32">
           {/* Mission Card */}
           <div className="group relative p-12 bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-white/5 transition-all hover:-translate-y-2 overflow-hidden">
@@ -73,7 +73,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* 3. Operational Pillars - Realistic E-commerce Metrics */}
+        {/* pillars */}
         <section className="mb-32">
             <div className="text-center mb-16">
                 <h2 className="text-xs font-black text-indigo-600 uppercase tracking-[0.4em] mb-4">Why Shop With Us</h2>
@@ -94,7 +94,7 @@ const AboutUs = () => {
             </div>
         </section>
 
-        {/* 4. Realistic Team Roles */}
+        {/* team role */}
         <section className="pb-32">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-slate-100 dark:border-white/10 pb-12">
               <h2 className="text-6xl font-black tracking-tighter">The Experts.</h2>
@@ -123,7 +123,7 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* 5. Realistic Support CTA */}
+        {/* buttons */}
         <section className="text-center bg-indigo-600 rounded-[4rem] py-24 px-6 text-white overflow-hidden relative group">
             <div className="relative z-10 space-y-8">
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter">Your Satisfaction, Our Priority.</h2>

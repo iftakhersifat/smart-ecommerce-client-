@@ -3,7 +3,6 @@ import { AuthContext } from './AuthProvider';
 import { Navigate, useLocation } from 'react-router';
 
 const Private = ({ children }) => {
-    // useContext hook bebohar koro
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
 
@@ -16,7 +15,6 @@ const Private = ({ children }) => {
     }
 
     if (!user) {
-        // User login na thakle login page-e pathaw ebong 'from' state-e location rakho
         return <Navigate to='/login' state={location.pathname} replace />;
     }
 
