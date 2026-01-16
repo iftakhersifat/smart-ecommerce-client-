@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 
 const HeroSlider = () => {
+  const navigate = useNavigate();
   const slides = [
     {
       id: 1,
       image: "/assets/banner1.jpeg",
-      title: "Smart Shopping Experience",
-      desc: "Discover premium products with fast delivery and secure payment.",
+      tag: "Premium Quality",
+      title: "Elevate Your Shopping Experience",
+      desc: "Curated collection of world-class products delivered to your doorstep with speed and care.",
       primaryBtn: "Shop Now",
-      secondaryBtn: "View Details"
+      link: "/products-list",
     },
     {
       id: 2,
       image: "/assets/banner2.jpeg",
-      title: "Book Professional Services",
-      desc: "Trusted experts for your business and personal needs.",
-      primaryBtn: "Get Services",
-      secondaryBtn: "Learn More"
+      tag: "Expert Solutions",
+      title: "Professional Services On Demand",
+      desc: "Connect with verified industry experts and scale your business with precision.",
+      primaryBtn: "Get Started",
+      link: "/",
     },
     {
       id: 3,
       image: "/assets/banner3.jpg",
-      title: "Manage Orders Easily",
-      desc: "Track, update, and manage orders from one dashboard.",
-      primaryBtn: "Dashboard",
-      secondaryBtn: "Contact Us"
+      tag: "Smart Management",
+      title: "Track Every Move of Your Parcel",
+      desc: "Experience the transparency of real-time GPS tracking for all your international and local orders.",
+      primaryBtn: "Order List",
+      link: "/order-list",
     },
   ];
 
@@ -33,59 +39,99 @@ const HeroSlider = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-
+    }, 5000);
     return () => clearInterval(slideInterval);
   }, [slides.length]);
 
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+  const handlePrev = () => setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const handleNext = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
 
   return (
-    <div className="relative w-full h-[70vh] overflow-hidden">
+    <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-[85vh] overflow-hidden bg-slate-900">
       
+      {/* Slides Wrapper */}
       <div 
-        className="flex h-full w-full transition-transform duration-700 ease-in-out"
+        className="flex h-full transition-transform duration-1000]"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-        {slides.map((slide) => (
+        
+        {slides.map((slide, index) => (
           <div key={slide.id} className="relative w-full h-full flex-shrink-0">
-            <div className="hero w-full h-full"
+            
+            {/* Background Image with Zoom on Active */}
+            <div 
+              className={`absolute inset-0 transition-transform duration-[5000ms] ${currentSlide === index ? 'scale-110' : 'scale-100'}`}
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
               }}>
-              <div className="hero-overlay bg-opacity-60"></div>
-              <div className="hero-content text-center text-neutral-content">
-                <div className="max-w-md">
-                  <h1 className="mb-5 text-4xl md:text-4xl lg:text-5xl font-bold">{slide.title}</h1>
-                  <p className="mb-5">{slide.desc}</p>
-                  <button className="btn btn-primary mr-2">{slide.primaryBtn}</button>
-                  <button className="btn btn-outline text-white">{slide.secondaryBtn}</button>
+            </div>
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
+
+            {/* Content Container */}
+            <div className="relative h-full max-w-7xl mx-auto px-6 md:px-22 lg:px-20 flex items-center">
+              <div className="max-w-xl md:max-w-2xl lg:max-w-6xl text-left">
+                
+                {/* Tagline */}
+                <div className={`mb-4 transition-all duration-700 delay-100 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                  <span className="bg-indigo-600 px-3 py-1 rounded text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
+                    {slide.tag}
+                  </span>
                 </div>
+
+                {/* Main Title */}
+                <h1 className={`text-3xl md:text-2xl lg:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 transition-all duration-1000 delay-200 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+                  {slide.title}
+                </h1>
+
+                {/* Description - Hidden on small, shown on md+ */}
+                <p className={`hidden md:block text-base md:text-md lg:text-lg text-slate-300 mb-8 leading-relaxed transition-all duration-1000 delay-300 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+                  {slide.desc}
+                </p>
+
+                {/* Buttons */}
+                <div className={`flex items-center gap-4 transition-all duration-1000 delay-400 ${currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+                  <button onClick={() => navigate(slide.link)} className="px-6 lg:px-8 md:px-3 py-3 md:py-2 lg:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg transition-transform active:scale-95 text-sm md:text-base">
+                    {slide.primaryBtn}
+                  </button>
+                  <button onClick={() => navigate('/about')} className="px-6 lg:px-8 md:px-3 py-3 md:py-2 lg:py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold rounded-lg border border-white/20 transition-all text-sm md:text-base">
+                    Learn More
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="absolute hidden md:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 z-10">
-        <button onClick={handlePrev} className="btn btn-circle glass hover:bg-white/20 text-white">❮</button>
-        <button onClick={handleNext} className="btn btn-circle glass hover:bg-white/20 text-white">❯</button>
+      {/* Navigation - Hidden on mobile, shown on md+ */}
+      <div className="absolute hidden md:flex justify-between items-center w-full px-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+        <button 
+          onClick={handlePrev} 
+          className="lg:w-12 lg:h-12 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-indigo-600 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto">
+          <FaChevronLeft size={18} />
+        </button>
+        <button 
+          onClick={handleNext} 
+          className="lg:w-12 lg:h-12 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-indigo-600 text-white backdrop-blur-md border border-white/10 transition-all pointer-events-auto">
+          <FaChevronRight size={18} />
+        </button>
       </div>
 
-
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      {/* Indicators - Responsive Width */}
+      <div className="absolute bottom-6 md:bottom-2 lg:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
         {slides.map((_, index) => (
-            <button key={index} onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? 'bg-primary w-6' : 'bg-white/50'}`}></button>
+          <button 
+            key={index} 
+            onClick={() => setCurrentSlide(index)}
+            className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ${currentSlide === index ? 'w-8 md:w-12 bg-indigo-500' : 'w-2 md:w-3 bg-white/40'}`}>
+          </button>
         ))}
       </div>
+
     </div>
   );
 };

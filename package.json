@@ -16,7 +16,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "firebase": "^12.7.0",
-    "framer-motion": "^12.23.26",
+    "framer-motion": "^12.26.1",
     "lucide-react": "^0.562.0",
     "mongodb": "^7.0.0",
     "react": "^18.3.1",

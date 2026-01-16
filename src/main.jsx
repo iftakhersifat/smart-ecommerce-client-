@@ -11,6 +11,7 @@ import AboutUs from './Components/Pages/AboutUs.jsx';
 import Login from './Components/Pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
 import AuthProvider from './Components/Firebase/AuthProvider.jsx';
+import EmployeePrivate from './Components/Firebase/EmployeePrivate.jsx';
 import Register from './Components/Pages/Register.jsx';
 import ProductDetails from './Components/Products/ProductDetails.jsx';
 import ProductsGrid from './Components/Products/ProductsGrid.jsx';
@@ -27,6 +28,12 @@ import ManageOrders from './Components/Dashboard/ManageOrders.jsx';
 import ManageProducts from './Components/Dashboard/ManageProducts.jsx';
 import AddProduct from './Components/Dashboard/AddProduct.jsx';
 import MyOrders from './Components/Products/MyOrders.jsx';
+import EmployeeLayout from './Components/EmployeeDashboard/EmployeeLayout.jsx';
+import EmployeeManageProducts from './Components/EmployeeDashboard/EmployeeManageProducts.jsx';
+import Wishlist from './Components/Products/Wishlist.jsx';
+import Compare from './Components/Products/Compare.jsx';
+import ProfileUpdate from './Components/Dashboard/ProfileUpdate.jsx';
+import AIChatbot from './Components/Products/AIChatbot.jsx';
 
 
 
@@ -39,42 +46,39 @@ const router = createBrowserRouter([
       {path:'/about', Component: AboutUs},
       {path:'/login', Component: Login},
       {path:'/register', Component: Register},
-
       {path:'/products-list', Component: ProductsGrid},
       {path:'/products/:id', Component: ProductDetails},
-
-      {path:'/checkout/:id', element: <Private><CheckoutPage></CheckoutPage></Private>},
-      {path:'/order-confirmation', element: <Private><OrderConfirmation></OrderConfirmation></Private>},
-
+      {path:'/checkout/:id', element: <Private><CheckoutPage /></Private>},
+      {path:'/order-confirmation', element: <Private><OrderConfirmation /></Private>},
+      {path:'/wishlist', element: <Private><Wishlist /></Private>},
+      {path:'/compare', element: <Private><Compare /></Private>},
       {path: "/order-list", element: <MyOrders />},
-      {path: "manage-users", element: <AdminPrivate><ManageUsers /></AdminPrivate>},
-      // Router config file-e eivabe add koro
-{
-  path: "/admin",
-  element: <AdminPrivate><AdminLayout /></AdminPrivate>,
-  children: [
-    {
-      path: "manage-products",
-      element: <ManageProducts />
-    },
-    {
-      path: "add-product",
-      element: <AddProduct />
-    },
-    {
-      path: "manage-orders",
-      element: <ManageOrders />
-    }
-  ]
-}
-
-      // {path:"/admin", element: <AdminPanel></AdminPanel>}
-
-      
-
-
+      {path: "/profile", element: <ProfileUpdate />},
+      {path: "/chatbot", element: <AIChatbot />},
     ]
   },
+
+  {
+    path: "/employee",
+    element: <EmployeePrivate><EmployeeLayout /></EmployeePrivate>,
+    children:[
+      {path: "manage-products", element: <EmployeeManageProducts />},
+      {path: "add-product", element: <AddProduct />},
+      {path: "manage-orders", element: <ManageOrders />},
+    ]
+  },
+
+  {
+    path: "/admin",
+    element: <AdminPrivate><AdminLayout /></AdminPrivate>,
+    children: [
+      {path: "manage-products", element: <ManageProducts />},
+      {path: "add-product", element: <AddProduct />},
+      {path: "manage-orders", element: <ManageOrders />},
+      {path: "manage-users", element: <ManageUsers />}
+    ],
+  },
+
   {path:'*', Component: NotFound},
 ]);
 

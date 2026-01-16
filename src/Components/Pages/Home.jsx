@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HeroSlider from './HeroSlider';
 import Products from '../Products/Products';
 import axios from 'axios';
+import AIChatbot from '../Products/AIChatbot';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -30,6 +31,7 @@ const Home = () => {
   return (
     <div className="space-y-10 pb-10">
       <HeroSlider />
+      <AIChatbot></AIChatbot>
 
       {/* product section */}
       {products.length > 0 ? (<Products products={products} />) : 

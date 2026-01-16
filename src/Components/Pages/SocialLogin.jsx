@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Firebase/AuthProvider';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { Github } from 'lucide-react'; // Using Lucide for GitHub for better consistency
 
 const SocialLogin = ({ from }) => {
     const { registerWithGoogle, registerWithGithub } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isSocialLoading, setIsSocialLoading] = useState(null); // 'google' or 'github'
 
     // Database sync function
     const syncUserWithDb = (user) => {
@@ -14,56 +16,80 @@ const SocialLogin = ({ from }) => {
             name: user.displayName,
             email: user.email,
             photo: user.photoURL,
-            role: 'user' // Backend e "upsert" logic thakle eta purono role change korbe na
+            role: 'user'
         };
 
-        // Backend-e pathano
         axios.post('http://localhost:5000/users', userData)
             .then(() => {
-                toast.success("Successfully Logged In!");
+                toast.success(`Welcome back, ${user.displayName}!`, {
+                    style: { borderRadius: '12px', background: '#1e293b', color: '#fff' }
+                });
                 navigate(from, { replace: true });
             })
             .catch(err => {
                 console.error("DB Sync Error:", err);
-                navigate(from); // Sync fail holeo login jate hoy
-            });
+                navigate(from);
+            })
+            .finally(() => setIsSocialLoading(null));
     };
 
     const handleGoogle = () => {
+        setIsSocialLoading('google');
         registerWithGoogle()
-            .then(result => {
-                syncUserWithDb(result.user);
-            })
-            .catch(error => console.log(error));
+            .then(result => syncUserWithDb(result.user))
+            .catch(error => {
+                console.log(error);
+                setIsSocialLoading(null);
+            });
     };
 
     const handleGithub = () => {
+        setIsSocialLoading('github');
         registerWithGithub()
-            .then(result => {
-                syncUserWithDb(result.user);
-            })
-            .catch(error => toast.error(error.message));
+            .then(result => syncUserWithDb(result.user))
+            .catch(error => {
+                toast.error(error.message);
+                setIsSocialLoading(null);
+            });
     };
 
     return (
-        <div className="mt-4">
-            <div className="divider text-xs opacity-50 uppercase">Or Login With</div>
-            <div className="flex flex-col gap-3">
+        <div className="w-full mt-6">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Google Button */}
-                <button type="button" onClick={handleGoogle} className="btn bg-white hover:bg-gray-100 text-black border-[#e5e5e5] w-full normal-case">
-                    <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="#fbbc02" d="M120 256c0-25.36 4.64-49.7 13.06-72.26l-73.63-55.2A255.4 255.4 0 0 0 16 256c0 46.54 12.44 90.22 34.03 128.01l75.01-57.75C124.64 305.7 120 281.36 120 256z" />
-                        <path fill="#ea4335" d="M133.06 183.74c20.3-54.66 72.55-93.74 133.94-93.74 38.6 0 73.16 13.3 100.22 35.17l64.8-64.8C384.05 21.46 325.84 0 267 0 159.2 0 67.5 73.2 46.43 171.3l86.63 12.44z" />
-                        <path fill="#34a853" d="M267 512c62.64 0 115.13-20.58 153.53-55.85l-74.1-61.2c-21.72 14.7-49.44 23.36-79.43 23.36-61.39 0-113.64-39.08-133.94-93.74l-86.63 12.44C67.5 438.8 159.2 512 267 512z" />
-                        <path fill="#4285f4" d="M512 256c0-18.06-1.61-35.48-4.62-52.36H267v101.92h140.03c-6.04 32.55-24.36 60.11-51.5 78.41l74.1 61.2C473.05 404.54 512 336.52 512 256z" />
-                    </svg>
-                    Login with Google
+                <button
+                    type="button"
+                    onClick={handleGoogle}
+                    disabled={isSocialLoading !== null}
+                    className="flex items-center justify-center gap-3 px-4 py-3.5 border border-slate-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all active:scale-[0.98] disabled:opacity-50"
+                >
+                    {isSocialLoading === 'google' ? (
+                        <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                        <svg width="20" height="20" viewBox="0 0 48 48">
+                            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                            <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                            <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                        </svg>
+                    )}
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">Google</span>
                 </button>
 
                 {/* GitHub Button */}
-                <button type="button" onClick={handleGithub} className="btn bg-black hover:bg-zinc-800 text-white border-black w-full normal-case">
-                    <svg aria-label="GitHub logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg>
-                    Login with GitHub
+                <button
+                    type="button"
+                    onClick={handleGithub}
+                    disabled={isSocialLoading !== null}
+                    className="flex items-center justify-center gap-3 px-4 py-3.5 bg-zinc-900 hover:bg-black text-white rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50"
+                >
+                    {isSocialLoading === 'github' ? (
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                        <Github size={20} />
+                    )}
+                    <span className="text-sm font-bold">GitHub</span>
                 </button>
             </div>
         </div>

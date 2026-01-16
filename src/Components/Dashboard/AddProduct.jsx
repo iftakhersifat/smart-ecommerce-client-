@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { FaCloudUploadAlt, FaTag, FaDollarSign, FaLayerGroup, FaImage, FaStar, FaListAlt } from "react-icons/fa";
+import { 
+    FaCloudUploadAlt, FaTag, FaDollarSign, FaLayerGroup, 
+    FaImage, FaSpinner, FaInfoCircle, FaCheckCircle 
+} from "react-icons/fa";
+
+const image_hosting_key = "d4f6b241561ed775667ce1666941a5ff"; 
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddProduct = () => {
+    const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState({
         name: "Product Name",
         price: 0,
         image: "https://via.placeholder.com/300",
-        category: "Category",
+        category: "electronics",
     });
 
     const handleInputChange = (e) => {
@@ -16,127 +23,219 @@ const AddProduct = () => {
         setPreview({ ...preview, [name]: value });
     };
 
-    const handleAddProduct = (e) => {
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPreview({ ...preview, image: URL.createObjectURL(file) });
+        }
+    };
+
+    const handleAddProduct = async (e) => {
         e.preventDefault();
+        setUploading(true);
         const form = e.target;
+        const imageFile = form.image.files[0];
 
-        const newProduct = {
-            title: form.name.value,
-            price: parseFloat(form.price.value),
-            description: form.description.value,
-            category: form.category.value,
-            image: form.image.value,
-            rating: {
-                rate: parseFloat(form.rate.value) || 4.0,
-                count: parseInt(form.count.value) || 0
-            },
-            createdAt: new Date(),
-        };
+        try {
+            const formData = new FormData();
+            formData.append('image', imageFile);
 
-        axios.post("http://localhost:5000/products", newProduct)
-            .then((res) => {
-                if (res.data.insertedId) {
+            const res = await axios.post(image_hosting_api, formData, {
+                headers: { 'content-type': 'multipart/form-data' }
+            });
+
+            if (res.data.success) {
+                const imageUrl = res.data.data.display_url;
+
+                const newProduct = {
+                    title: form.name.value,
+                    price: parseFloat(form.price.value),
+                    description: form.description.value,
+                    category: form.category.value,
+                    image: imageUrl, 
+                    createdAt: new Date(),
+                };
+
+                const productRes = await axios.post("http://localhost:5000/products", newProduct);
+                
+                if (productRes.data.insertedId) {
                     Swal.fire({
-                        title: "Added to Inventory!",
-                        text: "Product is now live on your store.",
+                        title: "Success!",
+                        text: "New product has been added to the catalog.",
                         icon: "success",
-                        confirmButtonColor: "#4F46E5",
-                        background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1f2937' : '#fff',
-                        color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#fff' : '#000',
+                        confirmButtonColor: "#6366f1",
+                        background: document.documentElement.classList.contains('dark') ? '#0f172a' : '#fff',
+                        color: document.documentElement.classList.contains('dark') ? '#f8fafc' : '#1e293b',
                     });
                     form.reset();
-                    setPreview({ name: "Product Name", price: 0, image: "https://via.placeholder.com/300", category: "Category" });
+                    setPreview({ name: "Product Name", price: 0, image: "https://via.placeholder.com/300", category: "electronics" });
                 }
-            })
-            .catch(() => Swal.fire("Error", "Check your backend connection", "error"));
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error", "Something went wrong during upload", "error");
+        } finally {
+            setUploading(false);
+        }
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-6 lg:p-12 transition-colors duration-300">
-            <div className="max-w-6xl mx-auto">
-                <div className="flex flex-col lg:flex-row gap-10">
+        <div className="min-h-screen bg-[#f8fafc] dark:bg-[#020617] p-4 lg:p-10 transition-all duration-500">
+            <div className="max-w-7xl mx-auto">
+                
+                {/* Header Section */}
+                <div className="mb-10">
+                    <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Inventory Management</h1>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium">Create and publish new products to your digital storefront.</p>
+                </div>
+
+                <div className="flex flex-col lg:flex-row gap-12">
                     
-                    {/* 1. Add Product Form */}
-                    <div className="flex-1 bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
-                        <div className="bg-indigo-600 p-8 text-white">
-                            <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
-                                <FaCloudUploadAlt /> LIST NEW ITEM
-                            </h2>
-                            <p className="text-indigo-100 opacity-80 mt-1">Populate your inventory with new stock</p>
+                    {/* 1. Main Form Section */}
+                    <div className="flex-1">
+                        <div className="bg-white dark:bg-slate-900/50 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-indigo-500/10 border border-slate-200 dark:border-slate-800 p-8 lg:p-12 relative overflow-hidden">
+                            
+                            {/* Decorative Background Element */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+
+                            <form onSubmit={handleAddProduct} className="space-y-8">
+                                
+                                {/* Section Title */}
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
+                                        <FaCloudUploadAlt size={20} />
+                                    </div>
+                                    <h2 className="text-xl font-bold dark:text-white">Product Information</h2>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Product Title */}
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
+                                            <FaTag className="text-indigo-500" /> Item Title
+                                        </label>
+                                        <input 
+                                            type="text" name="name" onChange={handleInputChange} 
+                                            placeholder="e.g. Minimalist Wooden Chair" 
+                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl p-4 outline-none transition-all dark:text-white" required 
+                                        />
+                                    </div>
+
+                                    {/* Category */}
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
+                                            <FaLayerGroup className="text-indigo-500" /> Category
+                                        </label>
+                                        <select 
+                                            name="category" onChange={handleInputChange} 
+                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 rounded-2xl p-4 outline-none transition-all dark:text-white appearance-none" required
+                                        >
+                                            <option value="electronics">Electronics</option>
+                                            <option value="men's clothing">Men's Clothing</option>
+                                            <option value="women's clothing">Women's Clothing</option>
+                                            <option value="jewelery">Jewelery</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Price */}
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
+                                            <FaDollarSign className="text-indigo-500" /> Price (USD)
+                                        </label>
+                                        <input 
+                                            type="number" step="0.01" name="price" onChange={handleInputChange} 
+                                            placeholder="0.00" 
+                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 rounded-2xl p-4 outline-none transition-all dark:text-white" required 
+                                        />
+                                    </div>
+
+                                    {/* Image Upload */}
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
+                                            <FaImage className="text-indigo-500" /> Media Resource
+                                        </label>
+                                        <div className="relative">
+                                            <input 
+                                                type="file" name="image" accept="image/*" onChange={handleImageChange}
+                                                className="hidden" id="file-upload" required 
+                                            />
+                                            <label htmlFor="file-upload" className="flex items-center justify-between w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 cursor-pointer hover:border-indigo-500 transition-colors group">
+                                                <span className="text-slate-400 group-hover:text-indigo-500 transition-colors">Select from Gallery</span>
+                                                <FaCloudUploadAlt className="text-slate-400 group-hover:text-indigo-500" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Description */}
+                                <div className="space-y-2">
+                                    <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
+                                        <FaInfoCircle className="text-indigo-500" /> Detailed Description
+                                    </label>
+                                    <textarea 
+                                        name="description" 
+                                        placeholder="Enter product specifications, materials, and features..." 
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 rounded-3xl p-5 h-40 outline-none transition-all dark:text-white resize-none" required
+                                    ></textarea>
+                                </div>
+
+                                {/* Action Button */}
+                                <button 
+                                    type="submit" disabled={uploading}
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl h-16 text-sm uppercase tracking-[3px] shadow-xl shadow-indigo-600/20 active:scale-[0.98] transition-all disabled:bg-slate-300 dark:disabled:bg-slate-800 flex items-center justify-center gap-3"
+                                >
+                                    {uploading ? <><FaSpinner className="animate-spin" /> Processing Upload</> : "Publish to Storefront"}
+                                </button>
+                            </form>
                         </div>
-
-                        <form onSubmit={handleAddProduct} className="p-8 space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Product Title */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaTag className="mr-2"/> Product Title</label>
-                                    <input type="text" name="name" onChange={handleInputChange} placeholder="e.g. Fjallraven Backpack" className="input bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" required />
-                                </div>
-
-                                {/* Category */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaLayerGroup className="mr-2"/> Category</label>
-                                    <select name="category" onChange={handleInputChange} className="select bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" required>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="men's clothing">Men's Clothing</option>
-                                        <option value="women's clothing">Women's Clothing</option>
-                                        <option value="jewelery">Jewelery</option>
-                                    </select>
-                                </div>
-
-                                {/* Price */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaDollarSign className="mr-2"/> Unit Price</label>
-                                    <input type="number" step="0.01" name="price" onChange={handleInputChange} placeholder="109.95" className="input bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" required />
-                                </div>
-
-                                {/* Image URL */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaImage className="mr-2"/> Image Resource URL</label>
-                                    <input type="text" name="image" onChange={handleInputChange} placeholder="https://..." className="input bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" required />
-                                </div>
-
-                                {/* Rating Rate */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaStar className="mr-2 text-amber-500"/> Default Rating (0-5)</label>
-                                    <input type="number" step="0.1" max="5" name="rate" defaultValue="4.0" className="input bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" />
-                                </div>
-
-                                {/* Rating Count */}
-                                <div className="form-control">
-                                    <label className="label text-xs font-black text-slate-400 uppercase tracking-widest"><FaListAlt className="mr-2"/> Initial Review Count</label>
-                                    <input type="number" name="count" defaultValue="0" className="input bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl" />
-                                </div>
-                            </div>
-
-                            {/* Description */}
-                            <div className="form-control">
-                                <label className="label text-xs font-black text-slate-400 uppercase tracking-widest">Description & Specification</label>
-                                <textarea name="description" placeholder="Write detailed product information here..." className="textarea bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-indigo-500 rounded-2xl h-32 py-4" required></textarea>
-                            </div>
-
-                            <button type="submit" className="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-2xl h-14 text-lg font-bold shadow-lg shadow-indigo-200 dark:shadow-none">
-                                Publish Product to Store
-                            </button>
-                        </form>
                     </div>
 
-                    {/* 2. Live Preview Sidebar */}
-                    <div className="hidden lg:block w-80">
-                        <div className="sticky top-28">
-                            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 px-4">Live Preview Card</p>
-                            <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-2xl shadow-indigo-100 dark:shadow-none">
-                                <div className="h-64 bg-white p-10 flex items-center justify-center">
-                                    <img src={preview.image} alt="preview" className="max-h-full object-contain transition-transform duration-500 hover:scale-110" />
+                    {/* 2. Visual Preview Sidebar */}
+                    <div className="lg:w-[400px]">
+                        <div className="sticky top-10">
+                            <div className="flex items-center justify-between mb-6 px-4">
+                                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Live Marketplace Preview</span>
+                                <div className="flex gap-1">
+                                    <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                                    <div className="w-2 h-2 rounded-full bg-indigo-300"></div>
+                                    <div className="w-2 h-2 rounded-full bg-indigo-100"></div>
                                 </div>
-                                <div className="p-6 space-y-3">
-                                    <span className="badge bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-none font-bold uppercase text-[10px]">{preview.category}</span>
-                                    <h3 className="font-bold text-slate-800 dark:text-slate-200 line-clamp-2">{preview.name}</h3>
-                                    <div className="flex justify-between items-center pt-2">
-                                        <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400">${preview.price}</span>
-                                        <div className="flex items-center gap-1 text-amber-500 text-sm font-bold">
-                                            <FaStar /> 4.0
+                            </div>
+
+                            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 p-4 shadow-2xl relative overflow-hidden group">
+                                {/* Badge */}
+                                <div className="absolute top-8 left-8 z-10">
+                                    <span className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+                                        {preview.category}
+                                    </span>
+                                </div>
+
+                                {/* Image Container */}
+                                <div className="bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] aspect-square flex items-center justify-center overflow-hidden mb-6">
+                                    <img 
+                                        src={preview.image} alt="preview" 
+                                        className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700" 
+                                    />
+                                </div>
+
+                                {/* Details */}
+                                <div className="px-4 pb-6 space-y-4">
+                                    <h3 className="text-2xl font-bold text-slate-800 dark:text-white line-clamp-1">{preview.name}</h3>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex flex-col">
+                                            <span className="text-slate-400 text-xs font-bold uppercase">Price</span>
+                                            <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400">${preview.price}</span>
                                         </div>
+                                        <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg">
+                                            <FaCheckCircle size={20} />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                                        <p className="text-slate-400 text-[11px] leading-relaxed italic">
+                                            "This is a visual representation of how your product will appear to customers."
+                                        </p>
                                     </div>
                                 </div>
                             </div>

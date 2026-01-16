@@ -86,7 +86,7 @@ const ManageUsers = () => {
     };
 
     return (
-        <div className="min-h-screen -mb-24 bg-slate-50 dark:bg-slate-950 p-6 md:p-10 transition-colors duration-300">
+        <div className="min-h-screen p-6 md:p-10 transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
                 
                 {/* Header & Stats Card */}
