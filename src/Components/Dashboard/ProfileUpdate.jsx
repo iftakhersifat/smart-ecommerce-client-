@@ -10,10 +10,8 @@ const ProfileUpdate = () => {
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     
-    // Preview Image State - শুরুতে ইউজারের বর্তমান ছবি থাকবে
     const [previewImage, setPreviewImage] = useState(user?.photoURL);
 
-    // ইউজার ডাটা আপডেট হলে প্রিভিউ ইমেজ সিঙ্ক হবে
     useEffect(() => {
         setPreviewImage(user?.photoURL);
     }, [user]);
@@ -24,7 +22,6 @@ const ProfileUpdate = () => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // ১. তাৎক্ষণিক প্রিভিউ রিপ্লেস (Local URL)
         const localURL = URL.createObjectURL(file);
         setPreviewImage(localURL);
         
@@ -33,10 +30,8 @@ const ProfileUpdate = () => {
         formData.append('image', file);
 
         try {
-            // ২. সার্ভারে আপলোড
             const res = await axios.post(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, formData);
             if (res.data.success) {
-                // ৩. আপলোড সফল হলে ImgBB URL সেট হবে
                 setPreviewImage(res.data.data.display_url);
                 Swal.fire({
                     toast: true, position: 'top-end', icon: 'success',
@@ -44,7 +39,6 @@ const ProfileUpdate = () => {
                 });
             }
         } catch (error) {
-            // এরর হলে পুরনো ছবিতে ফিরে যাবে
             setPreviewImage(user?.photoURL);
             Swal.fire({ icon: 'error', title: 'Upload Failed', text: 'Cloud storage unavailable.' });
         } finally {
@@ -56,7 +50,6 @@ const ProfileUpdate = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // ৪. ফাইনাল আপডেট (প্রিভিউতে থাকা ইমেজে URL ই সেভ হবে)
             await UpdateUser({ displayName: e.target.name.value, photoURL: previewImage });
             Swal.fire({
                 icon: 'success', title: 'Identity Secured',
@@ -82,7 +75,7 @@ const ProfileUpdate = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
-                {/* Left Side: Avatar */}
+                {/* Left Side */}
                 <div className="lg:col-span-4 space-y-6">
                     <div className="bg-white dark:bg-[#11141b] rounded-[2.5rem] p-8 shadow-xl border border-slate-100 dark:border-white/5 transition-all">
                         <div className="relative group w-44 h-44 mx-auto mb-8">
@@ -91,8 +84,7 @@ const ProfileUpdate = () => {
                             <img 
                                 src={previewImage || "https://i.ibb.co/0QZCv5C/user-placeholder.png"} 
                                 alt="profile" 
-                                className={`relative w-full h-full rounded-full object-cover ring-8 ring-white dark:ring-slate-900 shadow-2xl transition-all ${uploading ? 'opacity-50 blur-[2px]' : 'opacity-100'}`} 
-                            />
+                                className={`relative w-full h-full rounded-full object-cover ring-8 ring-white dark:ring-slate-900 shadow-2xl transition-all ${uploading ? 'opacity-50 blur-[2px]' : 'opacity-100'}`} />
 
                             <label className="absolute bottom-2 right-2 w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl flex items-center justify-center cursor-pointer shadow-xl transition-all hover:rotate-12 border-4 border-white dark:border-slate-900">
                                 <input type="file" onChange={handleImageUpload} className="hidden" accept="image/*" />
@@ -109,7 +101,7 @@ const ProfileUpdate = () => {
 
                         <div className="text-center">
                             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">
-                                <RiVerifiedBadgeFill size={14} /> Verified {user?.role || "Staff"}
+                                <RiVerifiedBadgeFill size={14} /> Verified {user?.role || "User"}
                             </div>
                             <h3 className="text-2xl font-black text-slate-800 dark:text-white truncate px-2">{user?.displayName || "Member"}</h3>
                             <p className="text-sm font-medium text-slate-400 mt-1">{user?.email}</p>
@@ -117,7 +109,7 @@ const ProfileUpdate = () => {
                     </div>
                 </div>
 
-                {/* Right Side: Form */}
+                {/* Right Side */}
                 <div className="lg:col-span-8">
                     <div className="bg-white dark:bg-[#11141b] rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100 dark:border-white/5">
                         <form onSubmit={handleUpdate} className="space-y-8">
@@ -129,8 +121,7 @@ const ProfileUpdate = () => {
                                         <input 
                                             type="text" name="name" defaultValue={user?.displayName}
                                             className="w-full pl-14 pr-6 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-[1.25rem] focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all dark:text-white font-bold"
-                                            required
-                                        />
+                                            required/>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -154,8 +145,7 @@ const ProfileUpdate = () => {
                                 <button 
                                     type="submit"
                                     disabled={loading || uploading}
-                                    className={`w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-700 text-white font-black rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-3 ${loading || uploading ? 'opacity-50' : 'active:scale-95'}`}
-                                >
+                                    className={`w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-700 text-white font-black rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-3 ${loading || uploading ? 'opacity-50' : 'active:scale-95'}`}>
                                     {loading ? <FaSpinner className="animate-spin" /> : <FaCheckCircle />}
                                     {loading ? "Syncing..." : "Apply Changes"}
                                 </button>

@@ -41,9 +41,7 @@ const EmployeeLayout = () => {
 
     const navLinkStyles = ({ isActive }) => 
         `flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
-            isActive 
-            ? "bg-indigo-600 dark:bg-cyan-600 text-white shadow-lg" 
-            : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-cyan-400"
+            isActive ? "bg-indigo-600 dark:bg-cyan-600 text-white shadow-lg" : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-cyan-400"
         }`;
 
     return (
@@ -52,14 +50,12 @@ const EmployeeLayout = () => {
             {/* Sidebar (Desktop) */}
             <aside className={`fixed md:sticky top-0 h-screen bg-white dark:bg-[#11141b] border-r border-slate-200 dark:border-white/5 transition-all duration-500 z-50 
                 ${isExpanded ? "w-72" : "w-20"} 
-                ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-            `}>
+                ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
                 
-                {/* Collapse Button (Desktop only) */}
+                {/* collapse button */}
                 <button 
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="hidden md:flex absolute -right-3 top-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-6 h-6 rounded-full items-center justify-center text-[10px] shadow-sm z-50 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer"
-                >
+                    className="hidden md:flex absolute -right-3 top-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-6 h-6 rounded-full items-center justify-center text-[10px] shadow-sm z-50 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer">
                     {isExpanded ? <FaChevronLeft /> : <FaChevronRight />}
                 </button>
 
@@ -72,7 +68,7 @@ const EmployeeLayout = () => {
                         {isExpanded && <h2 className="text-xl font-black dark:text-white tracking-tighter">Employee<span className="text-indigo-600">Panel</span></h2>}
                     </div>
 
-                    {/* Nav Items */}
+                    {/* nav items */}
                     <nav className="flex-1 space-y-2">
                         {menuItems.map((item) => (
                             <NavLink key={item.path} to={item.path} onClick={() => setIsMobileMenuOpen(false)} className={navLinkStyles}>
@@ -82,53 +78,40 @@ const EmployeeLayout = () => {
                         ))}
                     </nav>
 
-                    {/* Footer - Dynamic User Profile */}
+                    {/* footer */}
                     <div className="relative mt-auto pt-4 border-t border-slate-100 dark:border-white/5" ref={profileRef}>
-                                            <button 
-                                                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                                className={`w-full flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all cursor-pointer ${!isExpanded && "md:justify-center"}`}
-                                            >
-                                                {user?.photoURL ? (
-                                                    <img src={user.photoURL} alt="admin" className="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-600/10" />
-                                                ) : (
-                                                    <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-xl flex items-center justify-center font-black">
-                                                        {user?.displayName?.charAt(0) || "A"}
-                                                    </div>
-                                                )}
+                        <button onClick={() => setIsProfileOpen(!isProfileOpen)}
+                         className={`w-full flex items-center gap-3 p-2 rounded-2xl hover:bg-slat dark:hover:bg-slate-800/50 transition-all cursor-pointer ${!isExpanded && "md:justify-center"}`}>
+                        {user?.photoURL ? (
+                        <img src={user.photoURL} alt="admin" className="w-10 h-10 rounded-xl object-cover ring-indigo-600/10" />) : (
+                        <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-xl flex items-center justify-center font-black">{user?.displayName?.charAt(0) || "A"}
+                        </div>)}
                                                 
-                                                {isExpanded && (
-                                                    <div className="text-left overflow-hidden">
-                                                        <p className="text-xs font-black dark:text-white truncate">{user?.displayName || "Super Admin"}</p>
-                                                        <p className="text-[9px] text-indigo-500 font-black uppercase tracking-widest">{user?.role || "Administrator"}</p>
-                                                    </div>
-                                                )}
-                                            </button>
+                        {isExpanded && (
+                        <div className="text-left overflow-hidden">
+                        <p className="text-xs font-black dark:text-white truncate">{user?.displayName || "Super Admin"}</p>
+                        <p className="text-[9px] text-indigo-500 font-black uppercase tracking-widest">{user?.role || "Administrator"}</p>
+                        </div>)}</button>
                     
-                                            {/* ChatGPT-style Popover Menu */}
-                                            {isProfileOpen && (
-                                                <div className="absolute bottom-full left-0 mb-3 w-60 bg-white dark:bg-[#1c212c] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl p-2 animate-in slide-in-from-bottom-2 duration-300 z-[60]">
-                                                    <div className="px-3 py-2 border-b border-slate-100 dark:border-white/5 mb-1">
-                                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Control Panel</p>
-                                                    </div>
-                                                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">
-                                                        <FaHome className="text-indigo-500" /> View Storefront
-                                                    </button>
-                                                    <div className="h-[1px] bg-slate-100 dark:bg-white/5 my-1"></div>
-                                                    <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all">
-                                                        <FaSignOutAlt /> Log Out System
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </div>
+                        {/* popover menu */}
+                        {isProfileOpen && (
+                        <div className="absolute bottom-full left-0 mb-3 w-60 bg-white dark:bg-[#1c212c] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl p-2 animate-in slide-in-from-bottom-2 duration-300 z-[60]">
+                        <div className="px-3 py-2 border-b border-slate-100 dark:border-white/5 mb-1">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Control Panel</p></div>
+                        <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">
+                        <FaHome className="text-indigo-500" /> View Store</button>
+                        <div className="h-[1px] bg-slate-100 dark:bg-white/5 my-1"></div>
+                        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all">
+                        <FaSignOutAlt /> Log Out System</button></div>)}</div>
                 </div>
             </aside>
 
-            {/* Mobile Header Overlay */}
+            {/* overlay */}
             {isMobileMenuOpen && (
                 <div onClick={() => setIsMobileMenuOpen(false)} className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" />
             )}
 
-            {/* Main Content Area */}
+            {/* main content */}
             <main className="flex-1 min-w-0">
                 <header className="h-16  md:hidden lg:fixed flex items-center justify-between px-6 bg-white/80 dark:bg-[#0b0e14]/80 backdrop-blur-md sticky top-0 border-b border-slate-200 dark:border-white/5 z-40">
                     <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden p-2 text-slate-600 dark:text-slate-300">
