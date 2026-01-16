@@ -40,8 +40,7 @@ const AdminLayout = () => {
 
     const navLinkStyles = ({ isActive }) => 
         `flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 ${
-            isActive ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" : "text-slate-500 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-white"
-        }`;
+            isActive ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" : "text-slate-500 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-white"}`;
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-[#0b0e14] transition-colors duration-500">
@@ -83,11 +82,9 @@ const AdminLayout = () => {
                     <div className="relative mt-auto pt-4 border-t border-slate-100 dark:border-white/5" ref={profileRef}>
                         <button 
                             onClick={() => setIsProfileOpen(!isProfileOpen)}
-                            className={`w-full flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all cursor-pointer ${!isExpanded && "md:justify-center"}`}
-                        >
+                            className={`w-full flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all cursor-pointer ${!isExpanded && "md:justify-center"}`}>
                             {user?.photoURL ? (
-                                <img src={user.photoURL} alt="admin" className="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-600/10" />
-                            ) : (
+                                <img src={user.photoURL} alt="admin" className="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-600/10" />) : (
                                 <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-xl flex items-center justify-center font-black">
                                     {user?.displayName?.charAt(0) || "A"}
                                 </div>
@@ -101,7 +98,7 @@ const AdminLayout = () => {
                             )}
                         </button>
 
-                        {/* ChatGPT-style Popover Menu */}
+                        {/* popover menu */}
                         {isProfileOpen && (
                             <div className="absolute bottom-full left-0 mb-3 w-60 bg-white dark:bg-[#1c212c] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl p-2 animate-in slide-in-from-bottom-2 duration-300 z-[60]">
                                 <div className="px-3 py-2 border-b border-slate-100 dark:border-white/5 mb-1">
@@ -127,7 +124,7 @@ const AdminLayout = () => {
                     className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"/>
             )}
 
-            {/* Main Content*/}
+            {/* main content*/}
             <main className="flex-1 flex flex-col min-w-0">
                 <header className="h-16  md:hidden lg:fixed flex items-center justify-between px-6 bg-white/80 dark:bg-[#0b0e14]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5 sticky top-0 z-40">
                     <div className="flex items-center gap-4">
@@ -140,7 +137,7 @@ const AdminLayout = () => {
                     
                 </header>
 
-                {/* Pages */}
+                {/* pages */}
                 <div className="p-4 md:p-10 flex-1">
                     <div className="max-w-7xl mx-auto">
                          <Outlet />

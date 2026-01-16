@@ -117,10 +117,7 @@ const ManageProducts = () => {
                     <div>
                         <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
                             <span className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200 dark:shadow-none">
-                                <FaBoxOpen size={24} />
-                            </span>
-                            Product Inventory
-                        </h1>
+                                <FaBoxOpen size={24} /></span>Product Inventory</h1>
                         <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium flex items-center gap-2">
                             Manage and monitor your store products ({products.length} items total)
                         </p>
@@ -200,11 +197,9 @@ const ManageProducts = () => {
                 </div>
             </div>
 
-            {/* --- PROFESSIONAL EDIT MODAL --- */}
             <dialog id="edit_modal" className="modal modal-bottom sm:modal-middle backdrop-blur-sm">
                 <div className="modal-box p-0 bg-white dark:bg-[#0f172a] max-w-2xl rounded-[2.5rem] overflow-hidden border dark:border-slate-800 shadow-2xl">
                     
-                    {/* Modal Header */}
                     <div className="relative h-32 bg-indigo-600 flex items-center px-8">
                         <div className="z-10">
                             <h3 className="text-2xl font-black text-white flex items-center gap-3">
@@ -215,7 +210,6 @@ const ManageProducts = () => {
                         <form method="dialog" className="absolute right-6 top-6 z-10">
                             <button className="btn btn-sm btn-circle bg-white/20 border-none text-white hover:bg-white/30">✕</button>
                         </form>
-                        {/* Decorative Circles */}
                         <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
                         <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-400/20 rounded-full -ml-16 -mb-16 blur-xl"></div>
                     </div>
@@ -223,15 +217,12 @@ const ManageProducts = () => {
                     {selectedProduct && (
                         <form key={selectedProduct?._id} onSubmit={handleUpdate} className="p-8 space-y-8">
                             
-                            {/* Pro Image Upload UI */}
                             <div className="flex flex-col md:flex-row items-center gap-8 bg-slate-50 dark:bg-slate-800/40 p-6 rounded-3xl border border-slate-100 dark:border-slate-700">
                                 <div className="relative group shrink-0">
                                     <div className="w-32 h-32 rounded-2xl bg-white p-3 shadow-xl overflow-hidden">
                                         <img src={selectedProduct.image} className="w-full h-full object-contain" alt="preview" />
                                     </div>
-                                    <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white p-2 rounded-lg shadow-lg">
-                                        <FaSync className={uploading ? "animate-spin" : ""} />
-                                    </div>
+                                    
                                 </div>
                                 
                                 <div className="flex-1 w-full text-center md:text-left">
@@ -241,8 +232,7 @@ const ManageProducts = () => {
                                         type="file" 
                                         name="imageInput" 
                                         accept="image/*"
-                                        className="file-input file-input-bordered file-input-indigo file-input-md w-full max-w-xs bg-white dark:bg-slate-900 rounded-xl" 
-                                    />
+                                        className="file-input file-input-bordered file-input-indigo file-input-md w-full max-w-xs bg-white dark:bg-slate-900 rounded-xl"/>
                                 </div>
                             </div>
 
@@ -282,16 +272,14 @@ const ManageProducts = () => {
                                 </div>
                             </div>
 
-                            {/* Action Button */}
+                            {/* Button */}
                             <div className="modal-action mt-10">
                                 <button 
                                     type="submit" 
                                     disabled={uploading}
-                                    className="btn w-full h-16 bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-2xl text-lg font-black shadow-xl shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-3 group disabled:bg-indigo-400"
-                                >
+                                    className="btn w-full h-16 bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-2xl text-lg font-black shadow-xl shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-3 group disabled:bg-indigo-400">
                                     {uploading ? (
-                                        <span className="loading loading-spinner loading-md"></span>
-                                    ) : (
+                                        <span className="loading loading-spinner loading-md"></span>) : (
                                         <>
                                             <FaSave className="group-hover:scale-125 transition-transform" /> 
                                             Apply Changes

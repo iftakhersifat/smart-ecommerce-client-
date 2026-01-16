@@ -47,7 +47,7 @@ const EmployeeLayout = () => {
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-[#0b0e14]">
             
-            {/* Sidebar (Desktop) */}
+            {/* Sidebar */}
             <aside className={`fixed md:sticky top-0 h-screen bg-white dark:bg-[#11141b] border-r border-slate-200 dark:border-white/5 transition-all duration-500 z-50 
                 ${isExpanded ? "w-72" : "w-20"} 
                 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>

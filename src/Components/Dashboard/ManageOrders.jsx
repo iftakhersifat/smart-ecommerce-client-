@@ -61,7 +61,6 @@ const ManageOrders = () => {
 
     return (
         <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 p-4 lg:p-10 transition-colors duration-300">
-            {/* 1. Header & Stats Section */}
             <div className="max-w-7xl mx-auto space-y-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
@@ -75,7 +74,6 @@ const ManageOrders = () => {
                     </div>
                 </div>
 
-                {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <StatCard icon={<FaShoppingCart />} label="Total Orders" value={stats.total} color="blue" />
                     <StatCard icon={<FaClock />} label="Pending" value={stats.pending} color="amber" />
@@ -83,7 +81,7 @@ const ManageOrders = () => {
                     
                 </div>
 
-                {/* 2. Search & Filter Bar */}
+                {/* search & filter */}
                 <div className="bg-white dark:bg-slate-900 p-4 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4 items-center">
                     <div className="relative flex-1 w-full">
                         <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -91,12 +89,10 @@ const ManageOrders = () => {
                             type="text" 
                             placeholder="Quick search by email, order ID, or product..." 
                             className="input w-full pl-12 bg-slate-50 dark:bg-slate-800/50 border-transparent focus:border-indigo-500 rounded-2xl transition-all"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+                            onChange={(e) => setSearchTerm(e.target.value)}/>
                     </div>
                 </div>
 
-                {/* 3. Modern Table */}
                 <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="table w-full border-separate border-spacing-0">
@@ -138,8 +134,7 @@ const ManageOrders = () => {
                                                 <select 
                                                     className="select select-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-xs font-bold rounded-xl focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all" 
                                                     onChange={(e) => updateStatus(order._id, e.target.value)}
-                                                    defaultValue={order.status}
-                                                >
+                                                    defaultValue={order.status}>
                                                     <option value="Pending">Pending</option>
                                                     <option value="Shipped">Shipped</option>
                                                     <option value="Delivered">Delivered</option>
@@ -158,7 +153,6 @@ const ManageOrders = () => {
     );
 };
 
-// Helper Components
 const StatCard = ({ icon, label, value, color }) => (
     <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-5 group hover:shadow-md transition-all">
         <div className={`p-4 bg-${color}-50 dark:bg-${color}-900/20 text-${color}-600 dark:text-${color}-400 rounded-2xl group-hover:scale-110 transition-transform`}>

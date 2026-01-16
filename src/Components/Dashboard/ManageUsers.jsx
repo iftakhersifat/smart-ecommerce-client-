@@ -89,7 +89,6 @@ const ManageUsers = () => {
         <div className="min-h-screen p-6 md:p-10 transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
                 
-                {/* Header & Stats Card */}
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-6">
                     <div>
                         <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Access Control</h1>
@@ -110,7 +109,7 @@ const ManageUsers = () => {
                     </div>
                 </div>
 
-                {/* Search & Filter Bar */}
+                {/* Search & Filter */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="md:col-span-2 relative">
                         <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -118,15 +117,13 @@ const ManageUsers = () => {
                             type="text" 
                             placeholder="Search by name or email..." 
                             className="input w-full pl-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-50 dark:focus:ring-indigo-900/20 shadow-sm"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+                            onChange={(e) => setSearchTerm(e.target.value)}/>
                     </div>
                     <div className="relative">
                         <FaFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                         <select 
                             className="select w-full pl-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-50 dark:focus:ring-indigo-900/20 shadow-sm"
-                            onChange={(e) => setFilterRole(e.target.value)}
-                        >
+                            onChange={(e) => setFilterRole(e.target.value)}>
                             <option value="all">All Roles</option>
                             <option value="admin">Admins</option>
                             <option value="employee">Employees</option>
@@ -135,7 +132,6 @@ const ManageUsers = () => {
                     </div>
                 </div>
 
-                {/* User Table Card */}
                 <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
                     {loading ? (
                         <div className="py-20 flex justify-center"><span className="loading loading-spinner loading-lg text-indigo-600"></span></div>
@@ -179,22 +175,19 @@ const ManageUsers = () => {
                                                     <button 
                                                         onClick={() => handleRoleUpdate(user._id, user.uid, 'admin', user.email)}
                                                         className={`p-3 rounded-xl transition-all ${user.role === 'admin' ? 'bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-700 cursor-not-allowed' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600'}`}
-                                                        title="Promote to Admin"
-                                                    >
+                                                        title="Promote to Admin">
                                                         <FaUserShield size={18} />
                                                     </button>
                                                     <button 
                                                         onClick={() => handleRoleUpdate(user._id, user.uid, 'employee', user.email)}
                                                         className={`p-3 rounded-xl transition-all ${user.role === 'employee' ? 'bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-700 cursor-not-allowed' : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600'}`}
-                                                        title="Make Employee"
-                                                    >
+                                                        title="Make Employee">
                                                         <FaUserTie size={18} />
                                                     </button>
                                                     <button 
                                                         onClick={() => handleRoleUpdate(user._id, user.uid, 'user', user.email)}
                                                         className={`p-3 rounded-xl transition-all ${(!user.role || user.role === 'user') ? 'bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-700 cursor-not-allowed' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-800 dark:hover:bg-slate-700 hover:text-white'}`}
-                                                        title="Demote to User"
-                                                    >
+                                                        title="Demote to User">
                                                         <FaUser size={18} />
                                                     </button>
                                                 </div>

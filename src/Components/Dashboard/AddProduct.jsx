@@ -91,7 +91,6 @@ const AddProduct = () => {
 
                 <div className="flex flex-col lg:flex-row gap-12">
                     
-                    {/* 1. Main Form Section */}
                     <div className="flex-1">
                         <div className="bg-white dark:bg-slate-900/50 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-indigo-500/10 border border-slate-200 dark:border-slate-800 p-8 lg:p-12 relative overflow-hidden">
                             
@@ -117,8 +116,7 @@ const AddProduct = () => {
                                         <input 
                                             type="text" name="name" onChange={handleInputChange} 
                                             placeholder="e.g. Minimalist Wooden Chair" 
-                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl p-4 outline-none transition-all dark:text-white" required 
-                                        />
+                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl p-4 outline-none transition-all dark:text-white" required />
                                     </div>
 
                                     {/* Category */}
@@ -128,8 +126,7 @@ const AddProduct = () => {
                                         </label>
                                         <select 
                                             name="category" onChange={handleInputChange} 
-                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 rounded-2xl p-4 outline-none transition-all dark:text-white appearance-none" required
-                                        >
+                                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:border-indigo-500 rounded-2xl p-4 outline-none transition-all dark:text-white appearance-none" required>
                                             <option value="electronics">Electronics</option>
                                             <option value="men's clothing">Men's Clothing</option>
                                             <option value="women's clothing">Women's Clothing</option>

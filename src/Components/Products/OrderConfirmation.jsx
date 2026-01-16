@@ -44,7 +44,7 @@ const OrderConfirmation = () => {
                                 <p className="text-slate-500 dark:text-slate-400 text-lg mb-10">Your package is being prepared with care. We’ll notify you when it’s on its way.
                                 </p>
 
-                                {/* modern stepper */}
+                                {/* stepper */}
                                 <div className="w-full space-y-8 mb-10">
                                     <div className="flex items-center gap-4">
                                         <div className="relative flex flex-col items-center">
@@ -83,101 +83,84 @@ const OrderConfirmation = () => {
                             </div>
                         </div>
 
-                        {/* Right Side: High-End Invoice Summary */}
-<div className="lg:col-span-5 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-8 md:p-12 border-l border-slate-100 dark:border-slate-800">
+                        {/* Right Side */}
+                        <div className="lg:col-span-5 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-8 md:p-12 border-l border-slate-100 dark:border-slate-800">
     
-            <div className="flex justify-between py-4">
-                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-[0.2em] mt-1">Order Confirmed</p>
-                <div>
-                <p className="text-[10px] text-right font-black text-slate-400 uppercase tracking-widest">Date</p>
-                <p className="text-sm font-bold text-slate-900 dark:text-slate-200">{new Date().toLocaleDateString()}</p>
-                </div>
-            </div>
+                        <div className="flex justify-between py-4">
+                            <p className="text-[10px] font-bold text-blue-600 uppercase tracking-[0.2em] mt-1">Order Confirmed</p>
+                            <div>
+                            <p className="text-[10px] text-right font-black text-slate-400 uppercase tracking-widest">Date</p>
+                            <p className="text-sm font-bold text-slate-900 dark:text-slate-200">{new Date().toLocaleDateString()}</p>
+                            </div>
+                        </div>
 
-    <div className="space-y-8">
-        {/* Item Card */}
-        <div className="group flex items-center gap-5 p-4 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
-            <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0">
-                <img 
-                    src={order.productImage} 
-                    className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal p-2 group-hover:scale-110 transition-transform duration-500" 
-                    alt="product" 
-                />
-            </div>
-            <div className="flex-1 min-w-0">
-                <p className="font-extrabold text-slate-800 dark:text-slate-200 truncate leading-tight">
-                    {order.productTitle}
-                </p>
-                <p className="text-xs text-slate-400 font-bold mt-1 uppercase tracking-widest">
-                    Quantity: <span className="text-slate-900 dark:text-white">{order.quantity}</span>
-                </p>
-            </div>
-            <p className="font-black text-slate-900 dark:text-white text-lg">
-                ${order.totalPrice}
-            </p>
-        </div>
+                        <div className="space-y-8">
+                        <div className="group flex items-center gap-5 p-4 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                            <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0">
+                                <img src={order.productImage} className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal p-2 group-hover:scale-110 transition-transform duration-500" alt="product"/>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                        <p className="font-extrabold text-slate-800 dark:text-slate-200 truncate leading-tight">{order.productTitle}</p>
+                        <p className="text-xs text-slate-400 font-bold mt-1 uppercase tracking-widest">Quantity: <span className="text-slate-900 dark:text-white">{order.quantity}</span></p>
+                        </div>
+                        <p className="font-black text-slate-900 dark:text-white text-lg">${order.totalPrice}</p>
+                        </div>
 
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 gap-4 py-6 border-y border-dashed border-slate-200 dark:border-slate-700">
-            <div className="flex items-center gap-4 group">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500">
-                    <FaEnvelope size={14} />
-                </div>
-                <div className="overflow-hidden">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer Email</p>
-                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300 truncate">{order.customerEmail}</p>
-                </div>
-            </div>
 
-            <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-500 mt-1">
-                    <FaMapMarkerAlt size={14} />
-                </div>
-                <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Shipping Address</p>
-                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300 leading-relaxed">{order.address}</p>
-                </div>
-            </div>
-        </div>
-
-        {/* Billing Section */}
-        <div className="space-y-4">
-            <div className="flex justify-between text-sm font-bold text-slate-500 dark:text-slate-400">
-                <span>Subtotal</span>
-                <span className="text-slate-900 dark:text-white">${order.totalPrice}</span>
-            </div>
-            <div className="flex justify-between text-sm font-bold text-slate-500 dark:text-slate-400">
-                <span>Shipping Fee</span>
-                <span className="text-green-500 uppercase text-xs tracking-widest">Free</span>
-            </div>
-
-            {/* Total Highlight */}
-            <div className="relative mt-8 p-6 rounded-[2rem] bg-slate-900 dark:bg-blue-600 overflow-hidden shadow-2xl shadow-blue-500/20">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <FaShoppingBag size={80} className="-rotate-12" />
-                </div>
-                <div className="relative z-10 flex justify-between items-center">
-                    <div>
-                        <p className="text-[10px] font-black text-blue-200/60 uppercase tracking-widest">Amount to Pay</p>
-                        <p className="text-white font-bold text-xs">Via Cash on Delivery</p>
-                    </div>
-                    <div className="text-right">
-                        <span className="text-4xl font-black text-white leading-none">${order.totalPrice}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {/* Security Footer */}
-        <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-8">
-            Verified Transaction &bull; Thank you
-        </p>
-    </div>
-</div>
-
-                    </div>
-                </div>
+                        <div className="grid grid-cols-1 gap-4 py-6 border-y border-dashed border-slate-200 dark:border-slate-700">
+                            <div className="flex items-center gap-4 group">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500"><FaEnvelope size={14} />
+                                </div>
+                                <div className="overflow-hidden">
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer Email</p>
+                                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300 truncate">{order.customerEmail}</p>
+                                </div>
+                            </div>
                 
+                                <div className="flex items-start gap-4">
+                                <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-500 mt-1">
+                                    <FaMapMarkerAlt size={14} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Shipping Address</p>
+                                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300 leading-relaxed">{order.address}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Billing Section */}
+                        <div className="space-y-4">
+                            <div className="flex justify-between text-sm font-bold text-slate-500 dark:text-slate-400">
+                                <span>Subtotal</span>
+                                <span className="text-slate-900 dark:text-white">${order.totalPrice}</span>
+                            </div>
+                            <div className="flex justify-between text-sm font-bold text-slate-500 dark:text-slate-400">
+                                <span>Shipping Fee</span>
+                                <span className="text-green-500 uppercase text-xs tracking-widest">Free</span>
+                            </div>
+                
+                        {/* Total Highlight */}
+                        <div className="relative mt-8 p-6 rounded-[2rem] bg-slate-900 dark:bg-blue-600 overflow-hidden shadow-2xl shadow-blue-500/20">
+                            <div className="absolute top-0 right-0 p-4 opacity-10">
+                                <FaShoppingBag size={80} className="-rotate-12" />
+                            </div>
+                            <div className="relative z-10 flex justify-between items-center">
+                                <div>
+                                    <p className="text-[10px] font-black text-blue-200/60 uppercase tracking-widest">Amount to Pay</p>
+                                    <p className="text-white font-bold text-xs">Via Cash on Delivery</p>
+                                </div>
+                                <div className="text-right">
+                                    <span className="text-4xl font-black text-white leading-none">${order.totalPrice}</span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-8">Verified Transaction &bull; Thank you</p></div>
+                        </div>
+
+                       </div>
+                    </div>      
             </div>
         </div>
     );

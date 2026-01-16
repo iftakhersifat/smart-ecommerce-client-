@@ -4,7 +4,7 @@ import { FaHeart, FaShieldHalved, FaTruckFast } from "react-icons/fa6";
 import { useParams, useNavigate } from "react-router";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../Firebase/AuthProvider';
-import AIRecommendations from "./AIRecommendations"; // Ensure the path is correct
+import AIRecommendations from "./AIRecommendations";
 
 const renderStars = (rate = 0) => {
   const fullStars = Math.floor(rate);
@@ -50,7 +50,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchProductData();
-    window.scrollTo(0, 0); // Scroll to top when product changes
+    window.scrollTo(0, 0);
   }, [id]);
 
   const handleAddToWishlist = async () => {
@@ -177,12 +177,10 @@ const ProductDetails = () => {
     <div className="bg-slate-50 -mb-24 -mt-24 pt-24 pb-24 dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 py-8">
         
-        {/* Navigation */}
         <button onClick={() => navigate(-1)} className="group flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-medium text-sm mb-8">
           <FaChevronLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Catalog
         </button>
 
-        {/* Main Product Section */}
         <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             
@@ -227,7 +225,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* --- AI Recommendations Section --- */}
+        {/* Recommendations Section */}
         <div className="mt-20">
             <AIRecommendations currentProduct={product} />
         </div>
@@ -236,9 +234,7 @@ const ProductDetails = () => {
         <div className="mt-24 grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-7">
             <div className="flex items-center justify-between mb-10">
-                <h2 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-3">
-                  Customer Reviews 
-                </h2>
+                <h2 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-3">Customer Reviews</h2>
                 <span className="bg-indigo-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-indigo-200 dark:shadow-none">{reviews.length} total</span>
             </div>
 
@@ -281,7 +277,7 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* Leave a Review Form */}
+          {/* Review Form */}
           <div className="lg:col-span-5">
             <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] border dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none sticky top-12">
               <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Write Feedback</h3>

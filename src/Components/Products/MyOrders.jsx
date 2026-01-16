@@ -9,7 +9,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext);
     const [myOrders, setMyOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('All'); // Filter State
+    const [activeTab, setActiveTab] = useState('All');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,12 +29,8 @@ const MyOrders = () => {
         fetchOrders();
     }, [user]);
 
-    // Filter Logic
-    const filteredOrders = activeTab === 'All' 
-        ? myOrders 
-        : myOrders.filter(order => order.status === activeTab);
+    const filteredOrders = activeTab === 'All' ? myOrders : myOrders.filter(order => order.status === activeTab);
 
-    // Dynamic Filter Tabs Configuration
     const tabs = [
         { name: 'All', icon: <FaBoxOpen /> },
         { name: 'Pending', icon: <FaRegClock /> },
@@ -104,7 +100,6 @@ const MyOrders = () => {
 
     return (
         <div className="max-w-6xl mx-auto px-6 py-12">
-            {/* Header Section */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                 <div className="space-y-2 text-center lg:text-left">
                     <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">My Orders</h2>
@@ -133,8 +128,7 @@ const MyOrders = () => {
                             activeTab === tab.name 
                             ? "bg-white dark:bg-slate-700 text-primary shadow-md scale-105" 
                             : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
-                        }`}
-                    >
+                        }`}>
                         {tab.icon}
                         {tab.name}
                     </button>
