@@ -56,7 +56,7 @@ const AddProduct = () => {
                     createdAt: new Date(),
                 };
 
-                const productRes = await axios.post("http://localhost:5000/products", newProduct);
+                const productRes = await axios.post("https://smart-ecommerce-server.vercel.app/products", newProduct);
                 
                 if (productRes.data.insertedId) {
                     Swal.fire({
@@ -80,7 +80,7 @@ const AddProduct = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] dark:bg-[#020617] p-4 lg:p-10 transition-all duration-500">
+        <div className="min-h-screen p-4 lg:p-10 transition-all duration-500">
             <div className="max-w-7xl mx-auto">
                 
                 {/* Header Section */}
@@ -94,12 +94,11 @@ const AddProduct = () => {
                     <div className="flex-1">
                         <div className="bg-white dark:bg-slate-900/50 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-indigo-500/10 border border-slate-200 dark:border-slate-800 p-8 lg:p-12 relative overflow-hidden">
                             
-                            {/* Decorative Background Element */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
 
                             <form onSubmit={handleAddProduct} className="space-y-8">
                                 
-                                {/* Section Title */}
+                                {/* Title */}
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
                                         <FaCloudUploadAlt size={20} />
@@ -146,16 +145,14 @@ const AddProduct = () => {
                                         />
                                     </div>
 
-                                    {/* Image Upload */}
+                                    {/* Image */}
                                     <div className="space-y-2">
                                         <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[2px] ml-1 flex items-center gap-2">
                                             <FaImage className="text-indigo-500" /> Media Resource
                                         </label>
                                         <div className="relative">
-                                            <input 
-                                                type="file" name="image" accept="image/*" onChange={handleImageChange}
-                                                className="hidden" id="file-upload" required 
-                                            />
+                                            <input type="file" name="image" accept="image/*" onChange={handleImageChange}
+                                                className="hidden" id="file-upload" required />
                                             <label htmlFor="file-upload" className="flex items-center justify-between w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 cursor-pointer hover:border-indigo-500 transition-colors group">
                                                 <span className="text-slate-400 group-hover:text-indigo-500 transition-colors">Select from Gallery</span>
                                                 <FaCloudUploadAlt className="text-slate-400 group-hover:text-indigo-500" />
@@ -176,18 +173,17 @@ const AddProduct = () => {
                                     ></textarea>
                                 </div>
 
-                                {/* Action Button */}
+                                {/* Button */}
                                 <button 
                                     type="submit" disabled={uploading}
-                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl h-16 text-sm uppercase tracking-[3px] shadow-xl shadow-indigo-600/20 active:scale-[0.98] transition-all disabled:bg-slate-300 dark:disabled:bg-slate-800 flex items-center justify-center gap-3"
-                                >
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl h-16 text-sm uppercase tracking-[3px] shadow-xl shadow-indigo-600/20 active:scale-[0.98] transition-all disabled:bg-slate-300 dark:disabled:bg-slate-800 flex items-center justify-center gap-3">
                                     {uploading ? <><FaSpinner className="animate-spin" /> Processing Upload</> : "Publish to Storefront"}
                                 </button>
                             </form>
                         </div>
                     </div>
 
-                    {/* 2. Visual Preview Sidebar */}
+                    {/* Preview Sidebar */}
                     <div className="lg:w-[400px]">
                         <div className="sticky top-10">
                             <div className="flex items-center justify-between mb-6 px-4">
@@ -211,8 +207,7 @@ const AddProduct = () => {
                                 <div className="bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] aspect-square flex items-center justify-center overflow-hidden mb-6">
                                     <img 
                                         src={preview.image} alt="preview" 
-                                        className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700" 
-                                    />
+                                        className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700"/>
                                 </div>
 
                                 {/* Details */}

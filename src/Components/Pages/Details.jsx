@@ -26,7 +26,7 @@
 
 //   useEffect(() => {
 //     window.scrollTo(0, 0);
-//     fetch(`http://localhost:5000/products/${id}`)
+//     fetch(`https://smart-ecommerce-server.vercel.app/products/${id}`)
 //       .then(res => res.json())
 //       .then(data => {
 //         setProduct(data);

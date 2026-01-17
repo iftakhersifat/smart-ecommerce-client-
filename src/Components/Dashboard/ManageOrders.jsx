@@ -18,7 +18,7 @@ const ManageOrders = () => {
 
     const fetchOrders = () => {
         setLoading(true);
-        axios.get('http://localhost:5000/all-orders')
+        axios.get('https://smart-ecommerce-server.vercel.app/all-orders')
             .then(res => {
                 setOrders(res.data);
                 setFilteredOrders(res.data);
@@ -43,7 +43,7 @@ const ManageOrders = () => {
     };
 
     const updateStatus = (id, newStatus) => {
-        axios.patch(`http://localhost:5000/orders/${id}`, { status: newStatus })
+        axios.patch(`https://smart-ecommerce-server.vercel.app/orders/${id}`, { status: newStatus })
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     const Toast = Swal.mixin({
@@ -60,7 +60,7 @@ const ManageOrders = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 p-4 lg:p-10 transition-colors duration-300">
+        <div className="min-h-screen p-4 lg:p-10 transition-colors duration-300">
             <div className="max-w-7xl mx-auto space-y-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>

@@ -11,14 +11,14 @@ const Compare = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/compare?email=${user.email}`)
+            fetch(`https://smart-ecommerce-server.vercel.app/compare?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setCompareList(data));
         }
     }, [user]);
 
     const handleRemove = (id) => {
-        fetch(`http://localhost:5000/compare/${id}`, { method: 'DELETE' })
+        fetch(`https://smart-ecommerce-server.vercel.app/compare/${id}`, { method: 'DELETE' })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
@@ -28,7 +28,7 @@ const Compare = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-6">
+        <div className="min-h-screen py-12 px-6">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
                     <div className="w-16 h-16 bg-indigo-600/10 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">

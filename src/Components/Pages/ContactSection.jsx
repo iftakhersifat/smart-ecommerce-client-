@@ -9,7 +9,7 @@ const ContactSection = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('http://localhost:5000/messages', data);
+            const response = await axios.post('https://smart-ecommerce-server.vercel.app/messages', data);
             if (response.data.insertedId) {
                 toast.success('Message sent successfully!', {
                     style: { borderRadius: '12px', background: '#1e293b', color: '#fff' }

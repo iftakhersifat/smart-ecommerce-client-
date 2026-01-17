@@ -17,7 +17,7 @@ const MyOrders = () => {
             if (user?.email) {
                 try {
                     setLoading(true);
-                    const response = await axios.get(`http://localhost:5000/my-orders?email=${user.email}`);
+                    const response = await axios.get(`https://smart-ecommerce-server.vercel.app/my-orders?email=${user.email}`);
                     setMyOrders(response.data);
                 } catch (error) {
                     console.error("Error fetching orders:", error);
@@ -62,7 +62,7 @@ const MyOrders = () => {
 
         if (result.isConfirmed) {
             try {
-                const response = await axios.delete(`http://localhost:5000/orders/${id}`);
+                const response = await axios.delete(`https://smart-ecommerce-server.vercel.app/orders/${id}`);
                 if (response.data.deletedCount > 0) {
                     setMyOrders(myOrders.filter(order => order._id !== id));
                     Swal.fire("Cancelled", "Order removed successfully.", "success");

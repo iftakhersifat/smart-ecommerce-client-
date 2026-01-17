@@ -17,7 +17,7 @@ const SocialLogin = ({ from }) => {
             role: 'user'
         };
 
-        axios.post('http://localhost:5000/users', userData)
+        axios.post('https://smart-ecommerce-server.vercel.app/users', userData)
             .then(() => {
                 toast.success(`Welcome back, ${user.displayName}!`, {
                     style: { borderRadius: '12px', background: '#1e293b', color: '#fff' }

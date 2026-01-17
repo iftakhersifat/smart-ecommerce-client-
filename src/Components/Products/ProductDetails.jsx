@@ -33,11 +33,11 @@ const ProductDetails = () => {
 
   const fetchProductData = async () => {
     try {
-      const productRes = await fetch(`http://localhost:5000/products/${id}`);
+      const productRes = await fetch(`https://smart-ecommerce-server.vercel.app/products/${id}`);
       const productData = await productRes.json();
       setProduct(productData);
 
-      const reviewRes = await fetch(`http://localhost:5000/reviews/${id}`);
+      const reviewRes = await fetch(`https://smart-ecommerce-server.vercel.app/reviews/${id}`);
       const reviewData = await reviewRes.json();
       setReviews(reviewData);
 
@@ -57,7 +57,7 @@ const ProductDetails = () => {
     if (!user) return Swal.fire("Login Required", "Please login!", "warning");
     const wishlistItem = { productId: product._id, title: product.title, price: product.price, image: product.image, userEmail: user?.email };
     try {
-      const res = await fetch(`http://localhost:5000/wishlist`, {
+      const res = await fetch(`https://smart-ecommerce-server.vercel.app/wishlist`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(wishlistItem)
@@ -71,7 +71,7 @@ const ProductDetails = () => {
     if (!user) return Swal.fire("Login Required", "Please login!", "warning");
     const compareItem = { productId: product._id, title: product.title, price: product.price, image: product.image, category: product.category, userEmail: user?.email };
     try {
-      const res = await fetch(`http://localhost:5000/compare`, {
+      const res = await fetch(`https://smart-ecommerce-server.vercel.app/compare`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(compareItem)
@@ -95,7 +95,7 @@ const ProductDetails = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/reviews`, {
+      const res = await fetch(`https://smart-ecommerce-server.vercel.app/reviews`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(reviewInfo)
@@ -119,7 +119,7 @@ const ProductDetails = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`http://localhost:5000/reviews/${rev._id}`, { method: 'DELETE' });
+          const res = await fetch(`https://smart-ecommerce-server.vercel.app/reviews/${rev._id}`, { method: 'DELETE' });
           const data = await res.json();
           if (data.deletedCount > 0) {
             Swal.fire({ title: "Deleted", icon: "success", toast: true, position: 'top-end', showConfirmButton: false, timer: 2000 });
@@ -157,7 +157,7 @@ const ProductDetails = () => {
 
     if (formValues) {
       try {
-        const res = await fetch(`http://localhost:5000/reviews/${rev._id}`, {
+        const res = await fetch(`https://smart-ecommerce-server.vercel.app/reviews/${rev._id}`, {
           method: 'PATCH',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(formValues)
@@ -187,7 +187,7 @@ const ProductDetails = () => {
             <div className="lg:col-span-6 p-8 lg:p-12 flex items-center justify-center relative border-r dark:border-slate-800">
               <span className="absolute top-8 left-8 bg-indigo-600/10 text-indigo-600 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Premium Selection</span>
               <div className="relative group">
-                <img src={product.image} alt={product.title} className="w-full max-w-sm h-auto object-contain hover:scale-110 transition-transform duration-700 ease-in-out" />
+                <img src={product.image} alt={product.title} className="w-full max-w-sm h-auto pt-16 md:pt-0 object-contain hover:scale-110 transition-transform duration-700 ease-in-out" />
                 <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
             </div>

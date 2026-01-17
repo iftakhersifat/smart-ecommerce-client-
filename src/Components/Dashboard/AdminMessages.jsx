@@ -10,7 +10,7 @@ const AdminMessages = () => {
 
     const fetchMessages = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/messages");
+            const res = await axios.get("https://smart-ecommerce-server.vercel.app/messages");
             setMessages(res.data);
         } catch (error) {
             console.error(error);
@@ -26,7 +26,7 @@ const AdminMessages = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure?")) {
             try {
-                await axios.delete(`http://localhost:5000/messages/${id}`);
+                await axios.delete(`https://smart-ecommerce-server.vercel.app/messages/${id}`);
                 setMessages(messages.filter(msg => msg._id !== id));
                 toast.success("Message deleted");
             } catch (error) {
@@ -36,7 +36,7 @@ const AdminMessages = () => {
     };
 
     return (
-        <div className="p-8 bg-slate-50 dark:bg-slate-950 min-h-screen">
+        <div className="p-8 min-h-screen">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-10">
                     <h1 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-3">

@@ -18,9 +18,9 @@ const CheckoutPage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/products/${id}`).then((res) => setProduct(res.data));
+    axios.get(`https://smart-ecommerce-server.vercel.app/products/${id}`).then((res) => setProduct(res.data));
     if (editId) {
-      axios.get(`http://localhost:5000/orders/single/${editId}`).then((res) => {
+      axios.get(`https://smart-ecommerce-server.vercel.app/orders/single/${editId}`).then((res) => {
         setAddress(res.data.address);
         setQuantity(res.data.quantity);
       });
@@ -46,7 +46,7 @@ const CheckoutPage = () => {
     };
 
     try {
-      const apiEndpoint = editId ? `http://localhost:5000/orders/update/${editId}` : `http://localhost:5000/orders`;
+      const apiEndpoint = editId ? `https://smart-ecommerce-server.vercel.app/orders/update/${editId}` : `https://smart-ecommerce-server.vercel.app/orders`;
       const request = editId ? axios.patch : axios.post;
       const response = await request(apiEndpoint, orderData);
 

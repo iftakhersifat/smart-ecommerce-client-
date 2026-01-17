@@ -69,7 +69,7 @@ const Register = () => {
         createUser(email, pass).then(result => {
             const newUser = { name, email, photo: photoUrl, role: 'user' };
             
-            axios.post('http://localhost:5000/users', newUser)
+            axios.post('https://smart-ecommerce-server.vercel.app/users', newUser)
                 .then(res => console.log('User saved to MongoDB:', res.data))
                 .catch(err => console.error('Error saving user:', err));
 

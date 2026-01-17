@@ -18,7 +18,7 @@ const ManageProducts = () => {
     const fetchProducts = () => {
         setLoading(true);
         setIsRefreshing(true);
-        axios.get('http://localhost:5000/products')
+        axios.get('https://smart-ecommerce-server.vercel.app/products')
             .then(res => {
                 setProducts(res.data);
                 setLoading(false);
@@ -68,7 +68,7 @@ const ManageProducts = () => {
             description: form.description.value,
         };
 
-        axios.patch(`http://localhost:5000/products/${selectedProduct._id}`, updatedInfo)
+        axios.patch(`https://smart-ecommerce-server.vercel.app/products/${selectedProduct._id}`, updatedInfo)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
@@ -100,7 +100,7 @@ const ManageProducts = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/products/${id}`).then(() => {
+                axios.delete(`https://smart-ecommerce-server.vercel.app/products/${id}`).then(() => {
                     Swal.fire("Deleted!", "Product removed.", "success");
                     fetchProducts();
                 });

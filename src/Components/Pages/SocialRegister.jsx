@@ -16,7 +16,7 @@ const SocialRegister = ({ from }) => {
             role: 'user'
         };
 
-        axios.post('http://localhost:5000/users', userData)
+        axios.post('https://smart-ecommerce-server.vercel.app/users', userData)
             .then(res => {
                 toast.success(`Welcome to SmartStore, ${user.displayName.split(' ')[0]}!`, {
                     style: { borderRadius: '12px', background: '#1e293b', color: '#fff' }

@@ -35,7 +35,7 @@ const ManageUsers = () => {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("http://localhost:5000/users");
+            const res = await axios.get("https://smart-ecommerce-server.vercel.app/users");
             setUsers(res.data);
             setFilteredUsers(res.data);
         } catch (error) {
@@ -69,7 +69,7 @@ const ManageUsers = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await axios.patch(`http://localhost:5000/users/role/${mongoId}`, { role: newRole });
+                const res = await axios.patch(`https://smart-ecommerce-server.vercel.app/users/role/${mongoId}`, { role: newRole });
                 if (res.data.modifiedCount > 0) {
                     if (firebaseUid) {
                         await updateDoc(doc(db, "users", firebaseUid), { role: newRole });
@@ -100,7 +100,7 @@ const ManageUsers = () => {
 
         if (result.isConfirmed) {
             try {
-                const res = await axios.delete(`http://localhost:5000/users/${id}`);
+                const res = await axios.delete(`https://smart-ecommerce-server.vercel.app/users/${id}`);
                 if (res.data.deletedCount > 0) {
                     setUsers(users.filter(u => u._id !== id));
                     Swal.fire("Deleted", "Member removed from organization.", "success");
@@ -112,7 +112,7 @@ const ManageUsers = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 p-4 md:p-8 lg:p-12 transition-all duration-500">
+        <div className="min-h-screen p-4 md:p-8 lg:p-12 transition-all duration-500">
             <div className="max-w-7xl mx-auto">
                 
                 {/* Header Section */}

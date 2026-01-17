@@ -33,9 +33,10 @@ import EmployeeManageProducts from './Components/EmployeeDashboard/EmployeeManag
 import Wishlist from './Components/Products/Wishlist.jsx';
 import Compare from './Components/Products/Compare.jsx';
 import ProfileUpdate from './Components/Dashboard/ProfileUpdate.jsx';
-import AIChatbot from './Components/Products/AIChatbot.jsx';
+
 import ContactSection from './Components/Pages/ContactSection.jsx';
 import AdminMessages from './Components/Dashboard/AdminMessages.jsx';
+import TopBrands from './Components/Pages/TopBrands.jsx';
 
 
 
@@ -56,8 +57,9 @@ const router = createBrowserRouter([
       {path:'/compare', element: <Private><Compare /></Private>},
       {path: "/order-list", element: <MyOrders />},
       {path: "/profile", element: <ProfileUpdate />},
-      {path: "/chatbot", element: <AIChatbot />},
       {path: "/contact", element: <ContactSection />},
+
+      {path: "/brands", element: <TopBrands />},
     ]
   },
 

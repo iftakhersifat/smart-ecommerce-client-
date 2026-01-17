@@ -12,7 +12,7 @@ const AdminPrivate = ({ children }) => {
         const checkAdmin = async () => {
             if (user?.email) {
                 try {
-                    const res = await axios.get(`http://localhost:5000/users/${user.email}`);
+                    const res = await axios.get(`https://smart-ecommerce-server.vercel.app/users/${user.email}`);
                     if (res.data?.role === "admin") {
                         setIsAdmin(true);
                     } else {

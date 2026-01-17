@@ -88,7 +88,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 try {
-                    const response = await axios.get(`http://localhost:5000/users/${currentUser.email}`);
+                    const response = await axios.get(`https://smart-ecommerce-server.vercel.app/users/${currentUser.email}`);
                     if (response.data) {
                         setUser({
                             ...currentUser,

@@ -12,7 +12,7 @@ const Wishlist = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/wishlist?email=${user.email}`)
+            fetch(`https://smart-ecommerce-server.vercel.app/wishlist?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setWishlist(data);
@@ -22,7 +22,7 @@ const Wishlist = () => {
     }, [user]);
 
     const handleRemove = (id) => {
-        fetch(`http://localhost:5000/wishlist/${id}`, { method: 'DELETE' })
+        fetch(`https://smart-ecommerce-server.vercel.app/wishlist/${id}`, { method: 'DELETE' })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
@@ -35,7 +35,7 @@ const Wishlist = () => {
     if (loading) return <div className="min-h-screen flex items-center justify-center dark:bg-slate-950"><div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-6">
+        <div className="min-h-screen py-12 px-6">
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-end mb-10">
                     <div>

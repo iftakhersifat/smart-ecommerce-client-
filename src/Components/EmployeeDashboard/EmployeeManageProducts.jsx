@@ -19,7 +19,7 @@ const EmployeeManageProducts = () => {
         setLoading(true);
         setIsRefreshing(true);
 
-        axios.get(`http://localhost:5000/products?email=${loggedInUserEmail}`)
+        axios.get(`https://smart-ecommerce-server.vercel.app/products?email=${loggedInUserEmail}`)
             .then(res => {
                 setProducts(res.data);
                 setLoading(false);
@@ -51,7 +51,7 @@ const EmployeeManageProducts = () => {
             description: form.description.value,
         };
 
-        axios.patch(`http://localhost:5000/products/${selectedProduct._id}`, updatedInfo)
+        axios.patch(`https://smart-ecommerce-server.vercel.app/products/${selectedProduct._id}`, updatedInfo)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
@@ -77,7 +77,7 @@ const EmployeeManageProducts = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/products/${id}`).then(() => {
+                axios.delete(`https://smart-ecommerce-server.vercel.app/products/${id}`).then(() => {
                     Swal.fire("Deleted!", "Product has been removed.", "success");
                     fetchProducts();
                 });
@@ -86,7 +86,7 @@ const EmployeeManageProducts = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-3 md:p-6 lg:p-10 transition-colors duration-300">
+        <div className="min-h-screen p-3 md:p-6 lg:p-10 transition-colors duration-300">
             <div className="max-w-7xl mx-auto">
                 
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">

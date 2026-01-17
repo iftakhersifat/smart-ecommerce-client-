@@ -17,7 +17,7 @@ const AIRecommendations = ({ currentProduct }) => {
         const fetchAIRecommendations = async () => {
             setLoading(true);
             try {
-                const res = await axios.get(`http://localhost:5000/products`);
+                const res = await axios.get(`https://smart-ecommerce-server.vercel.app/products`);
                 const allProducts = res.data;
                 
                 const filtered = allProducts
@@ -81,7 +81,7 @@ const AIRecommendations = ({ currentProduct }) => {
                         <SwiperSlide key={product._id}>
                             <div className="group relative bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800/50 p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 overflow-hidden">
                                 
-                                <div onClick={() => navigate(`/product/${product._id}`)} className="cursor-pointer relative h-72 w-full mb-6 bg-slate-50 dark:bg-slate-800/40 rounded-[2.5rem] flex items-center justify-center p-10 overflow-hidden">
+                                <div onClick={() => navigate(`/products/${product._id}`)} className="cursor-pointer relative h-72 w-full mb-6 bg-slate-50 dark:bg-slate-800/40 rounded-[2.5rem] flex items-center justify-center p-10 overflow-hidden">
                                     <img 
                                         src={product.image} 
                                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" 
