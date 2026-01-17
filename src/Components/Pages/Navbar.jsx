@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Firebase/AuthProvider';
 import toast from 'react-hot-toast';
-import { FiSun, FiMoon, FiMenu, FiLogOut, FiUser, FiSettings, FiHeart, FiLayers, FiList, FiX } from 'react-icons/fi';
+import { FiSun, FiMoon, FiMenu, FiLogOut, FiUser, FiHeart, FiLayers, FiList, FiX } from 'react-icons/fi';
 import { ShoppingBag, Info, PhoneCall, Home, LayoutGrid } from 'lucide-react';
 import { FaUsersCog } from 'react-icons/fa';
 
@@ -14,11 +14,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const html = document.querySelector('html');
-    if (isDrawerOpen) {
-      html.style.overflow = 'hidden';
-    } else {
-      html.style.overflow = 'unset';
-    }
+    isDrawerOpen ? (html.style.overflow = 'hidden') : (html.style.overflow = 'unset');
     return () => { html.style.overflow = 'unset'; };
   }, [isDrawerOpen]);
 
@@ -94,7 +90,8 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              {user?.role && user.role !== 'customer' && (
+              {/* Desktop Management Panel: Only for Admin and Employee */}
+              {user && (user.role === 'admin' || user.role === 'employee') && (
                 <Link 
                   to={user.role === 'admin' ? "/admin/manage-products" : "/employee/manage-products"}
                   className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 text-amber-600 rounded-xl text-[9px] font-black uppercase tracking-widest border border-amber-500/20">
@@ -131,7 +128,6 @@ const Navbar = () => {
         </div>
       </div>
 
-
       <div className={`fixed inset-0 z-[100] transition-all duration-500 ${isDrawerOpen ? "visible opacity-100" : "invisible opacity-0"}`}>
         <div 
           className={`absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity duration-500 ${isDrawerOpen ? "opacity-100" : "opacity-0"}`} 
@@ -150,7 +146,8 @@ const Navbar = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-              {user?.role && user.role !== 'customer' && (
+              {/* Drawer Management Panel: Only for Admin and Employee */}
+              {user && (user.role === 'admin' || user.role === 'employee') && (
                 <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
                   <p className="text-[10px] font-black uppercase text-amber-600 tracking-[0.2em] mb-3">Management Access</p>
                   <NavLink 

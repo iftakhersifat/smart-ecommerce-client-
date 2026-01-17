@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Mail, Trash2, Eye, Calendar, User } from "lucide-react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AdminMessages = () => {
     const [messages, setMessages] = useState([]);
@@ -24,15 +25,32 @@ const AdminMessages = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure?")) {
-            try {
-                await axios.delete(`https://smart-ecommerce-server.vercel.app/messages/${id}`);
-                setMessages(messages.filter(msg => msg._id !== id));
-                toast.success("Message deleted");
-            } catch (error) {
-                toast.error("Delete failed");
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#4f46e5",
+            cancelButtonColor: "#ef4444",
+            confirmButtonText: "Yes, delete it!",
+            background: document.documentElement.classList.contains('dark') ? '#0f172a' : '#fff',
+            color: document.documentElement.classList.contains('dark') ? '#fff' : '#000',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`https://smart-ecommerce-server.vercel.app/messages/${id}`);
+                    setMessages(messages.filter(msg => msg._id !== id));
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Message has been deleted.",
+                        icon: "success",
+                        confirmButtonColor: "#4f46e5",
+                    });
+                } catch (error) {
+                    toast.error("Delete failed");
+                }
             }
-        }
+        });
     };
 
     return (
